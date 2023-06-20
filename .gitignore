@@ -7,3 +7,5 @@
 .env.production.local
 
 .vscode/
+
+.env
