@@ -4,6 +4,12 @@ const express = require('express');
 const cors = require('cors');
 
 const app = express();
+const newsRoutes = require("./routes/news");
+
+app.use(cors());
+app.use(express.json());
+
+app.use("/news", newsRoutes);
 
 /** Handle 404 errors -- this matches everything */
 app.use(function (req, res, next) {
