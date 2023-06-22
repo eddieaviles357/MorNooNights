@@ -5,7 +5,7 @@ CREATE TABLE users (
     password TEXT NOT NULL,
     email TEXT NOT NULL CHECK (position('@' IN email) > 1),
     is_admin BOOLEAN NOT NULL DEFAULT FALSE,
-    created_at TIMESTAMP DEFAULT NOW()
+    created_at TIMESTAMP NOT NULL DEFAULT NOW()
 );
 
 CREATE TABLE recents (
