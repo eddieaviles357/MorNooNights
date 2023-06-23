@@ -6,6 +6,49 @@ const { BadRequestError } = require("../MornoonightsError.js");
 const { BCRYPT_WORK_FACTOR } = require("../config.js");
 
 class User {
+  /** authenticate user with username, password.
+   *
+   * Returns { 
+   *    username, 
+   *    first_name, 
+   *    last_name, 
+   *    email, 
+   *    is_admin, 
+   *    created_at }
+   *
+   * Throws UnauthorizedError is user not found or wrong password.
+   **/
+
+    static async authenticate(username, password) {
+    // try to find the user first
+        const result = await db.query(
+            `SELECT username,
+                    password,
+                    first_name AS "firstName",
+                    last_name AS "lastName",
+                    email,
+                    is_admin AS "isAdmin",
+                    created_at AS "createdAt"
+            FROM users
+            WHERE username = $1`,
+            [username],
+        );
+
+        const user = result.rows[0];
+
+        if (!user) throw new UnauthorizedError("Invalid username/password");
+
+        // compare hashed password to a new hash from password
+        const isValid = await bcrypt.compare(password, user.password);
+        if (isValid === true) {
+        // remove password from user we don't want it to be returned
+        delete user.password;
+        return user;
+        };
+    };
+
+
+
     /** Register user with data.
    * { username, first_name, last_name, password, email, is_admin }
    * Returns { username, firstName, lastName, email, isAdmin, createdAt }
@@ -13,7 +56,6 @@ class User {
    *
    * Throws BadRequestError on duplicates.
    **/
-
     static async register({ username, first_name, last_name, password, email, is_admin }) {
 
         const doesUserExist = await db.query(
@@ -21,8 +63,8 @@ class User {
             );
 
         if(doesUserExist.rows[0]) {
-            throw new BadRequestError(`Duplicate username: ${username}`)
-        }
+            throw new BadRequestError(`Duplicate username: ${username}`);
+        };
 
         const hashedPassword = await bcrypt.hash(password, BCRYPT_WORK_FACTOR);
 
@@ -43,7 +85,8 @@ class User {
         const user = userResult.rows[0];
 
         return user;
-    }
+    };
+
 };
 
 module.exports = User;
