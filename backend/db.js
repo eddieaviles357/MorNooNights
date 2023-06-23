@@ -4,21 +4,28 @@
 const { Client } = require("pg");
 const { getDatabaseUri } = require("./config");
 
-let db = null;
-
-if (process.env.NODE_ENV === "production") {
-  db = new Client({
-    connectionString: getDatabaseUri(),
-    ssl: {
-      rejectUnauthorized: false
+async function db() {
+  try {
+    let client = null;
+  
+    if (process.env.NODE_ENV === "production") {
+      client = new Client({
+        connectionString: getDatabaseUri(),
+        ssl: {
+          rejectUnauthorized: false
+        }
+      });
+    } else {
+      client = new Client({
+        connectionString: getDatabaseUri()
+      });
     }
-  });
-} else {
-  db = new Client({
-    connectionString: getDatabaseUri()
-  });
-}
+    
+    client.connect();
+  } catch (err) {
+    console.log('err')
+  }
 
-db.connect();
+}
 
 module.exports = db;
