@@ -36,7 +36,7 @@ class User {
 
         const user = result.rows[0];
 
-        if (!user) throw new UnauthorizedError("Invalid username/password");
+        if (!user) throw new UnauthorizedError("Invalid username");
 
         // compare hashed password to a new hash from password
         const isValid = await bcrypt.compare(password, user.password);
@@ -44,7 +44,9 @@ class User {
         // remove password from user we don't want it to be returned
         delete user.password;
         return user;
-        };
+        } else {
+            throw new UnauthorizedError("Invalid password");
+        }
     };
 
 
