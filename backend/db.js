@@ -21,7 +21,7 @@ async function db() {
       });
     }
     
-    client.connect();
+    await client.connect();
   } catch (err) {
     console.log('err')
   }
