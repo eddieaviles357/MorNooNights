@@ -5,11 +5,13 @@ const cors = require('cors');
 
 const app = express();
 const newsRoutes = require("./routes/news");
+const authRoutes = require("./routes/auth");
 
 app.use(cors());
 app.use(express.json());
 
 app.use("/news", newsRoutes);
+app.use("/auth", authRoutes);
 
 /** Handle 404 errors -- this matches everything */
 app.use(function (req, res, next) {
