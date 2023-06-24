@@ -57,7 +57,6 @@ class User {
    * Throws BadRequestError on duplicates.
    **/
     static async register({ username, firstName, lastName, password, email, isAdmin }) {
-
         const doesUserExist = await db.query(
             `SELECT username FROM users WHERE username = $1`, [username]
             );
@@ -65,9 +64,8 @@ class User {
         if(doesUserExist.rows[0]) {
             throw new BadRequestError(`Duplicate username: ${username}`);
         };
-
+        
         const hashedPassword = await bcrypt.hash(password, BCRYPT_WORK_FACTOR);
-
         const userResult = await db.query(`
             INSERT INTO users 
             (username, first_name, last_name, password, email, is_admin)
