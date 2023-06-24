@@ -1,4 +1,17 @@
 {
+  "name": "mornoonightsnews",
+  "version": "1.0.0",
+  "description": "news data",
+  "main": "server.js",
+  "jest": {
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "config.js"
+    ]
+  },
+  "keywords": [],
+  "author": "eddieaviles357",
+  "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
