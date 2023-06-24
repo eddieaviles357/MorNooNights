@@ -8,6 +8,8 @@ const SECRET_KEY = process.env.SECRET_KEY || "MorNooNigthsNewsAppSecretDev";
 
 const PORT = +process.env.PORT || 3001;
 
+const API_KEY = process.env.API_KEY;
+
 // Use dev database, testing database, or via env var, production database
 function getDatabaseUri() {
   return (process.env.NODE_ENV === "test")
@@ -32,4 +34,5 @@ module.exports = {
   PORT,
   BCRYPT_WORK_FACTOR,
   getDatabaseUri,
+  API_KEY
 };
