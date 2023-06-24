@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const jsonschema = require("jsonschema");
-const User = require("../models/user");
+const User = require("../models/User");
 const userRegisterSchema = require("../schemas/userRegisterSchema");
 const { BadRequestError } = require("../MornoonightsError");
 const createToken = require("../helpers/tokens");
@@ -14,17 +14,17 @@ const createToken = require("../helpers/tokens");
  */
 router.post("/register", async function (req, res, next) {
     try {
-      const validator = jsonschema.validate(req.body, userRegisterSchema);
-      if (!validator.valid) {
-        const errs = validator.errors.map(e => e.stack);
-        throw new BadRequestError(errs);
-      }
-      // Register user set isAdmin to false for now
-      const newUser = await User.register({ ...req.body, isAdmin: false });
-      const token = createToken(newUser);
-      return res.status(201).json({ token });
+        const validator = jsonschema.validate(req.body, userRegisterSchema);
+        if (!validator.valid) {
+            const errs = validator.errors.map(e => e.stack);
+            throw new BadRequestError(errs);
+        }
+        // Register user set isAdmin to false for now
+        const newUser = await User.register({ ...req.body, isAdmin: false });
+        const token = createToken(newUser);
+        return res.status(201).json({ token });
     } catch (err) {
-      return next(err);
+        return next(err);
     }
   });
 
