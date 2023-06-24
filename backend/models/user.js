@@ -56,7 +56,7 @@ class User {
    *
    * Throws BadRequestError on duplicates.
    **/
-    static async register({ username, first_name, last_name, password, email, is_admin }) {
+    static async register({ username, firstName, lastName, password, email, isAdmin }) {
 
         const doesUserExist = await db.query(
             `SELECT username FROM users WHERE username = $1`, [username]
@@ -79,7 +79,7 @@ class User {
                 email, 
                 is_admin AS "isAdmin", 
                 created_at AS "createdAt"`, 
-                [username, first_name, last_name, hashedPassword, email, is_admin]
+                [username, firstName, lastName, hashedPassword, email, isAdmin]
             );
             
         const user = userResult.rows[0];
