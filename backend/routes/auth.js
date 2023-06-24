@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const jsonschema = require("jsonschema");
 const User = require("../models/user");
-const userRegisterSchema = require("../schema/userRegisterSchema");
+const userRegisterSchema = require("../schemas/userRegisterSchema");
 const { BadRequestError } = require("../MornoonightsError");
 const createToken = require("../helpers/tokens");
 
