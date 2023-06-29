@@ -89,7 +89,7 @@ class User {
 
     /** Get recently views news.
      * 
-     * returns max amount of 5 news
+     * returns max amount of 5 news 
      */
 
     // static async getRecents(username) {
