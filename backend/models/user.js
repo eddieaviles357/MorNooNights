@@ -78,8 +78,8 @@ class User {
                 last_name AS "lastName", 
                 email, 
                 is_admin AS "isAdmin", 
-                created_at AS "createdAt"`, 
-                [username, firstName, lastName, hashedPassword, email, isAdmin]
+                created_at AS "createdAt"
+                `, [username, firstName, lastName, hashedPassword, email, isAdmin]
             );
             
         const user = userResult.rows[0];
@@ -87,14 +87,25 @@ class User {
         return user;
     };
 
+    /** Get recently views news.
+     * 
+     * returns max amount of 5 news
+     */
+
+    // static async getRecents(username) {
+    //     let results = await db.query(`
+    //         SELECT 
+    //     `)
+    // }
+
     /** Delete given user from database; returns undefined. */
 
     static async remove(username) {
-        let result = await db.query(
-                `DELETE FROM users
-                WHERE username = $1
-                RETURNING username`,
-            [username],
+        let result = await db.query(`
+            DELETE FROM users
+            WHERE username = $1
+            RETURNING username
+            `, [username]
         );
         const user = result.rows[0];
 
