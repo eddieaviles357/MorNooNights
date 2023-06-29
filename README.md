@@ -1,10 +1,10 @@
 # MorNooNights News App
 
 This project will display News from the world or local to you.\
-Check it out the API [TheNewsAPI](https://www.thenewsapi.com)
+Check out the API [TheNewsAPI](https://www.thenewsapi.com)
 
 ## PostgreSQL Database Schema
 
-There is a user, recents and favorites tables in the databse.
+There are user, recents, and favorites tables in the database.
 
-![Schema](https://github.com/eddieaviles357/MorNooNights/assets/45490047/5fe47449-c4e1-4887-b9d1-a15dc3f03eb9)
+![SchemaUpdated](https://github.com/eddieaviles357/MorNooNights/assets/45490047/217f9f8a-0269-4b86-be6c-2e4ab25b6ea7)
