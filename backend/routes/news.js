@@ -142,5 +142,15 @@ router.get("/:uuid", async (req, res, next) => {
     } catch (err) {
         next(err);
     }
+});
+
+router.get("/recents", async (req, res, next) => {
+    try {
+        const endPoint = `test`;
+        const results = await axios.get(`${BASE_URL}${endPoint}`);
+        return res.json({ results });
+    } catch (err) {
+        return next(err);
+    }
 })
 module.exports = router;
