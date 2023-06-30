@@ -92,11 +92,16 @@ class User {
      * returns max amount of 5 news
      */
 
-    // static async getRecents(username) {
-    //     let results = await db.query(`
-    //         SELECT 
-    //     `)
-    // }
+    static async getRecents(username) {
+        let results = await db.query(`
+            SELECT news_id AS "uuid", username, visited_at AS "visitedAt"
+            FROM recents
+            WHERE username = $1
+            ORDER BY visitedAt DESC
+            LIMIT 5`, [username]);
+        
+        console.log(results)
+    }
 
     /** Delete given user from database; returns undefined. */
 
