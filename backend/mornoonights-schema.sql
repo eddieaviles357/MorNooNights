@@ -11,11 +11,13 @@ CREATE TABLE users (
 CREATE TABLE recents (
     news_id TEXT NOT NULL,
     username VARCHAR(30) REFERENCES users ON DELETE CASCADE,
+    visited_at TIMESTAMP NOT NULL DEFAULT NOW(),
     PRIMARY KEY (news_id, username)
 );
 
 CREATE TABLE favorites (
     news_id TEXT NOT NULL,
     username VARCHAR(30) REFERENCES users ON DELETE CASCADE,
+    favorited_at TIMESTAMP NOT NULL DEFAULT NOW(),
     PRIMARY KEY (news_id, username)
 );
