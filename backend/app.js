@@ -5,16 +5,19 @@ const cors = require('cors');
 
 const app = express();
 const { NotFoundError } = require("./MornoonightsError");
-const { authenticateJWT } = require("./middleware/auth");
 const newsRoutes = require("./routes/news");
 const authRoutes = require("./routes/auth");
+const { 
+    authenticateJWT, 
+    ensureLoggedIn,
+    } = require("./middleware/auth");
 
 app.use(cors());
 app.use(express.json());
 app.use(authenticateJWT);
 
 
-app.use("/news", newsRoutes);
+app.use("/news", ensureLoggedIn, newsRoutes);
 app.use("/auth", authRoutes);
 
 /** Handle 404 errors -- this matches everything */
