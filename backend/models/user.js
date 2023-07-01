@@ -94,13 +94,17 @@ class User {
 
     static async getRecents(username) {
         let results = await db.query(`
-            SELECT news_id AS "uuid", username, visited_at AS "visitedAt"
+            SELECT news_id AS "uuid", visited_at AS "visitedAt"
             FROM recents
             WHERE username = $1
-            ORDER BY visitedAt DESC
+            ORDER BY "visitedAt" DESC
             LIMIT 5`, [username]);
         
-        console.log(results)
+        if(results.rows.length === 0) return [];
+
+        const recents = results.rows;
+        
+        return recents;
     }
 
     /** Delete given user from database; returns undefined. */
