@@ -4,6 +4,9 @@ const router = require("express").Router();
 const { API_KEY } = require("../config");
 const axios = require("axios");
 const { NotFoundError } = require("../MornoonightsError");
+const { ensureCorrectUserOrAdmin } = require("../middleware/auth");
+
+const User = require("../models/User");
 
 const BASE_URL = `https://api.thenewsapi.com/v1/news/`
 
@@ -48,7 +51,7 @@ router.get("/top", async (req, res, next) => {
         const endPoint = `top?api_token=${API_KEY}&locale=us&limit=3`;
         const {data} = await axios.get(`${BASE_URL}${endPoint}`);
         if(!data) throw new NotFoundError("No News found");
-        console.log(data);
+        console.log('news/top::', data);
         return res.json({ data })
     } catch (err) {
         return next(err);
@@ -84,7 +87,7 @@ router.get("/sources", async (req, res, next) => {
         const endPoint = `sources?api_token=${API_KEY}&locale=us`;
         const {data} = await axios.get(`${BASE_URL}${endPoint}`)
         if(!data) throw new NotFoundError("No News found");
-        console.log(data);
+        console.log('news/sources::', data);
         return res.json({ data })
     } catch (err) {
         return next(err);
@@ -99,13 +102,36 @@ router.get("/sources", async (req, res, next) => {
 **/
 router.get("/category/:categories", async (req, res, next) => {
     try {
-        console.log('params::',req.params);
-        console.log('query::',req.query);
         return res.json({ test: 'test'})
     } catch (err) {
         return next(err);
     }
-})
+});
+
+router.get("/:username/recents", ensureCorrectUserOrAdmin, async (req, res, next) => {
+    try {
+        const { username } = res.locals.user; 
+        // get recently visited news -> [{ uuid, visitedAt}]
+        let recents = await User.getRecents(username);
+        // if any exist loop through recents array and call TheNewsApi using uuid
+        if(recents.length > 0) {
+            recents = await Promise.all(recents.map( async ({uuid, visitedAt}) => {
+                try {
+                    const endPoint = `uuid/${uuid}?api_token=${API_KEY}`;
+                    const {data} = await axios.get(`${BASE_URL}${endPoint}`);
+                    data['visitedAt'] = visitedAt; // add visitedAt key and value
+                    return data;
+                } catch (err) {
+                    return {error: `could not fetch news uuid: ${uuid}`};
+                }
+            }))
+        }
+        console.log('\nNEWS/{username}/RECENTS::', recents);
+        return res.json({ recents });
+    } catch (err) {
+        return next(err);
+    }
+});
 
 /** Gets single news by uuid.
 * 
@@ -134,23 +160,13 @@ router.get("/category/:categories", async (req, res, next) => {
 router.get("/:uuid", async (req, res, next) => {
     try {
         const { uuid } = req.params;
-        console.log(req.params)
         const endPoint = `uuid/${uuid}?api_token=${API_KEY}`;
         const {data} = await axios.get(`${BASE_URL}${endPoint}`)
-        console.log('\n\n\n\n\nDATA:::\n\n\n', data);
+        console.log('news/UUID::', data);
         return res.json({ data })
     } catch (err) {
         next(err);
     }
 });
 
-router.get("/recents", async (req, res, next) => {
-    try {
-        const endPoint = `test`;
-        const results = await axios.get(`${BASE_URL}${endPoint}`);
-        return res.json({ results });
-    } catch (err) {
-        return next(err);
-    }
-})
 module.exports = router;
