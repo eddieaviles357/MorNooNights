@@ -10,6 +10,7 @@ const User = require("../models/User");
 
 const BASE_URL = `https://api.thenewsapi.com/v1/news/`;
 const LANG_EN = "language=en";
+const LOCALE_US = "locale=us";
 
 // all endpoint have to have a valid user logged
 
@@ -51,7 +52,7 @@ const LANG_EN = "language=en";
 **/
 router.get("/top", async (req, res, next) => {
     try {
-        const endPoint = `top?api_token=${API_KEY}&locale=us&limit=3`;
+        const endPoint = `top?api_token=${API_KEY}&${LOCALE_US}&limit=3`;
         const {data} = await axios.get(`${BASE_URL}${endPoint}`);
         if(!data) throw new NotFoundError("No News found");
         console.log('news/top::', data);
