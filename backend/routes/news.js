@@ -124,13 +124,13 @@ router.get("/sources", async (req, res, next) => {
 **/
 router.get("/category/:categories", async (req, res, next) => {
     try {
-        return res.json({ test: 'test'})
+        const param = req.params
+        return res.json({ param})
     } catch (err) {
         return next(err);
     }
 });
 
-// https://api.thenewsapi.com/v1/news/similar/uuid
 /** Gets news by similar story.
 * 
 * Returns news obj
@@ -146,33 +146,6 @@ router.get("/similar/:uuid", async (req, res, next) => {
         return res.json({ data })
     } catch (err) {
         next(err);
-    }
-});
-
-router.get("/:username/recents", ensureCorrectUserOrAdmin, async (req, res, next) => {
-    try {
-        const { username } = res.locals.user; 
-        // get recently visited news -> [{ uuid, visitedAt}]
-        let recents = await User.getRecents(username);
-        // if any exist loop through recents array and call TheNewsApi using uuid
-        if(recents.length > 0) {
-            recents = await Promise.all(
-                recents.map( async ({uuid, visitedAt}) => {
-                    try {
-                        const endPoint = `uuid/${uuid}?api_token=${API_KEY}`;
-                        const {data} = await axios.get(`${BASE_URL}${endPoint}`);
-                        data['visitedAt'] = visitedAt; // add visitedAt key and value
-                        return data;
-                    } catch (err) {
-                        return {error: `could not fetch news uuid: ${uuid}`};
-                    }
-                })
-            );
-        };
-        console.log('\nNEWS/{username}/RECENTS::', recents);
-        return res.json({ recents });
-    } catch (err) {
-        return next(err);
     }
 });
 
@@ -209,6 +182,41 @@ router.get("/:uuid", async (req, res, next) => {
         return res.json({ data })
     } catch (err) {
         next(err);
+    }
+});
+
+/** Gets recents news from User.
+* 
+* Returns recent news from user
+*  
+* Empty array [] if no recent news exist.
+*
+* If an error in retrieving recent news is encountered will return { error: msg}
+**/
+router.get("/:username/recents", ensureCorrectUserOrAdmin, async (req, res, next) => {
+    try {
+        const { username } = res.locals.user; 
+        // get recently visited news -> [{ uuid, visitedAt}]
+        let recents = await User.getRecents(username);
+        // if any recents exist loop through array and call TheNewsApi using uuid
+        if(recents.length > 0) {
+            recents = await Promise.all(
+                recents.map( async ({uuid, visitedAt}) => {
+                    try {
+                        const endPoint = `uuid/${uuid}?api_token=${API_KEY}`;
+                        const {data} = await axios.get(`${BASE_URL}${endPoint}`);
+                        data['visitedAt'] = visitedAt; // add visitedAt key and value
+                        return data;
+                    } catch (err) {
+                        return {error: `could not fetch news uuid: ${uuid}`};
+                    }
+                })
+            );
+        };
+        console.log('\nNEWS/{username}/RECENTS::', recents);
+        return res.json({ recents });
+    } catch (err) {
+        return next(err);
     }
 });
 
