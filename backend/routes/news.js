@@ -8,7 +8,8 @@ const { ensureCorrectUserOrAdmin } = require("../middleware/auth");
 
 const User = require("../models/User");
 
-const BASE_URL = `https://api.thenewsapi.com/v1/news/`
+const BASE_URL = `https://api.thenewsapi.com/v1/news/`;
+const LANG_EN = "language=en";
 
 /** Gets Top news.
 * 
@@ -105,6 +106,25 @@ router.get("/category/:categories", async (req, res, next) => {
         return res.json({ test: 'test'})
     } catch (err) {
         return next(err);
+    }
+});
+
+// https://api.thenewsapi.com/v1/news/similar/uuid
+/** Gets news by similar story.
+* 
+* Returns news obj
+*  
+* Throws NotFoundError on no news.
+**/
+router.get("/similar/:uuid", async (req, res, next) => {
+    try {
+        const { uuid } = req.params;
+        const endPoint = `similar/${uuid}?api_token=${API_KEY}&${LANG_EN}`;
+        const {data} = await axios.get(`${BASE_URL}${endPoint}`)
+        console.log('news/similar/UUID::', data);
+        return res.json({ data })
+    } catch (err) {
+        next(err);
     }
 });
 
