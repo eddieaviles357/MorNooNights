@@ -19,33 +19,14 @@ const LOCALE_US = "locale=us";
 * Returns possible results
 * { 
 *   data: {
-*        meta: { 
-*           found: 11886289,
-*           returned: 3,
-*           limit: 3,
-*           page: 1
-*        }
-*   }, data: [
-*       { 
-*           uuid: "14371e1e-f136-4ed0-b1cb-f8abe6d5497e",
-*           title: "News title",
-*           description: "News description",
-*           keywords: "",
-*           snippet: "News snippet",
-*           url: "https://www.newsurl.com/",
-*           image_url: "https://imageurl",
-*           language: "en",
-*				"published_at": "2023-06-25T01:39:52.000000Z",
-*				"source": "foreignpolicy.com",
-*				"categories": [
-*					"general",
-*					"politics"
-*				],
-*				"relevance_score": null,
-*				"locale": "us"
-*           }
-*       ] 
-*    }
+*       meta: { found, returned, limit, page }, 
+*       data: [ 
+*           { uuid, title, description, keywords,
+*             snippet, url, image_url, language,
+*             published_at, source, categories: [], 
+*             relevance_score, locale } 
+*           ] 
+*   }
 * }
 *
 * Throws NotFoundError on no news.
@@ -66,25 +47,10 @@ router.get("/top", async (req, res, next) => {
 * 
 * Returns possible results
 * {
-*	"data": {
-*		"meta": {
-*			"found": 68748,
-*			"returned": 50,
-*			"limit": 50,
-*			"page": 1
-*		},
-*		"data": [
-*			{
-*				"source_id": "faz.net-1",
-*				"domain": "faz.net",
-*				"language": "de",
-*				"locale": null,
-*				"categories": [
-*					"general"
-*				]
-*			},
-*       ]
-*  }
+*	data: {
+*       meta: { found, returned, limit, page },
+*		data: [ { source_id,domain,language,locale, categories: [] } ]
+*   }
 */
 router.get("/sources", async (req, res, next) => {
     try {
@@ -116,24 +82,67 @@ router.get("/sources", async (req, res, next) => {
 //     }
 // });
 
+
+
+
 /** Gets news by categories.
-* 
-* Returns same as top news but with just categories
+*  categories can be -> tech, travel, business, entertainment, general, food, politics
+* Returns obj similar to
+*{
+*	data: {
+*       meta: { found, returned, limit, page },
+*       data: [ 
+*           { uuid, title, description, keywords,
+*             snippet, url, image_url, language,
+*             published_at, source, categories: [], relevance_score } 
+*           ] 
+*	}
+*}
 *  
-* Throws NotFoundError on no news.
+* if no data is found returns object with no data
+* {
+* 	data: { 
+*       meta: { found, returned, limit, page }, 
+*       data: [] 
+*   }
+* }
 **/
 router.get("/category/:categories", async (req, res, next) => {
     try {
-        const param = req.params
-        return res.json({ param})
+        const { categories } = req.params;
+        const endPoint = `all?api_token=${API_KEY}&${LOCALE_US}&${LANG_EN}&${`categories=${categories}`}`;
+        const {data} = await axios.get(`${BASE_URL}${endPoint}`);
+        console.log('news/CATEGORY/:categories::', data);
+        return res.json({ data })
     } catch (err) {
         return next(err);
     }
 });
 
+// https://api.thenewsapi.com/v1/news/all?api_token=YOUR_API_TOKEN&search=usd | gbp
+/** Gets news by search.
+* 
+* Returns news obj
+*  
+* Throws NotFoundError on no news.
+**/
+
+
+
+
 /** Gets news by similar story.
 * 
 * Returns news obj
+* {
+*	data: {
+*       meta: { found, returned, limit, page },
+*		data: [ 
+*            { uuid, title, description, keywords,
+*				snippet, url, image_url, language,
+*				published_at, source, categories: [], relevance_score } 
+*        ]
+*	 }
+* }
 *  
 * Throws NotFoundError on no news.
 **/
@@ -152,24 +161,13 @@ router.get("/similar/:uuid", async (req, res, next) => {
 /** Gets single news by uuid.
 * 
 * Returns singe news
-*{
-*	"data": {
-*		"uuid": "9324cd84-fecc-47e0-a053-d2a87fea1da4",
-*		"title": "Influenciadora que foi amante de Neymar expõe intimidade entre 4 paredes e esculacha: 'Já conheci mais interessantes'",
-*		"description": "A influenciadora Fernanda Campos, que expôs ter ficado com ...",
-*		"keywords": "",
-*		"snippet": "A influenciadora Fernanda Campos, que expôs ter ficado com ...",
-*		"url": "https://www.terra.com.br/diversao/tv/influenciadora-que-foi-amante-de-neymar-expoe-intimidade-entre-4-paredes-e-esculacha-ja-conheci-mais-interessantes,3e832117cd46360d7d85e55cb47f36e4j87y3x89.html",
-*		"image_url": "https://s1.trrsf.com/fe/zaz-mod-t360-icons/svg/logos/terra-16x9-borda.png",
-*		"language": "pt",
-*		"published_at": "2023-06-26T00:46:44.000000Z",
-*		"source": "terra.com.br",
-*		"categories": [
-*			"general",
-*			"tech"
-*		]
-*	}
-*}
+* {
+*   data: { 
+*       uuid, title, description, keywords,
+*       snippet, url, image_url, language,
+*       published_at, source, categories: [], 
+*   }
+* }
 *  
 * Throws NotFoundError on no news.
 **/
@@ -187,11 +185,18 @@ router.get("/:uuid", async (req, res, next) => {
 
 /** Gets recents news from User.
 * 
-* Returns recent news from user
+* Returns recent news obj
+* {
+*	 recents: [
+*		{ uuid, title, description, keywords,
+*		  snippet, url, image_url, language,
+*		  published_at, source, categories: [], visitedAt }
+*	 ]
+* }
 *  
-* Empty array [] if no recent news exist.
+* Returns an Empty array [] if no recent news exist.
 *
-* If an error in retrieving recent news is encountered will return { error: msg}
+* If an error occurs in retrieving recent news an error obj will return { error: msg }
 **/
 router.get("/:username/recents", ensureCorrectUserOrAdmin, async (req, res, next) => {
     try {
