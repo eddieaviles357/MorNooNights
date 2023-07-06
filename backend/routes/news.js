@@ -52,7 +52,7 @@ const LOCALE_US = "locale=us";
 **/
 router.get("/top", async (req, res, next) => {
     try {
-        const endPoint = `top?api_token=${API_KEY}&${LOCALE_US}&limit=3`;
+        const endPoint = `top?api_token=${API_KEY}&${LOCALE_US}&${LANG_EN}`;
         const {data} = await axios.get(`${BASE_URL}${endPoint}`);
         if(!data) throw new NotFoundError("No News found");
         console.log('news/top::', data);
@@ -88,7 +88,7 @@ router.get("/top", async (req, res, next) => {
 */
 router.get("/sources", async (req, res, next) => {
     try {
-        const endPoint = `sources?api_token=${API_KEY}&locale=us`;
+        const endPoint = `sources?api_token=${API_KEY}&${LOCALE_US}&${LANG_EN}`;
         const {data} = await axios.get(`${BASE_URL}${endPoint}`)
         if(!data) throw new NotFoundError("No News found");
         console.log('news/sources::', data);
@@ -97,6 +97,24 @@ router.get("/sources", async (req, res, next) => {
         return next(err);
     }
 });
+
+/** Gets news Headlines. ( ONLY FOR PAID ACCOUTNS)
+* 
+* Returns latest headlines
+*  
+* Throws NotFoundError on no news.
+**/
+// router.get("/headlines", async (req, res, next) => {
+//     try {
+//         const endPoint = `headlines?api_token=${API_KEY}&${LOCALE_US}&${LANG_EN}`;
+//         const {data} = await axios.get(`${BASE_URL}${endPoint}`)
+//         if(!data) throw new NotFoundError("No News found");
+//         console.log('news/HEADLINES::', data);
+//         return res.json({ data })
+//     } catch (err) {
+//         return next(err);
+//     }
+// });
 
 /** Gets news by categories.
 * 
@@ -122,7 +140,7 @@ router.get("/category/:categories", async (req, res, next) => {
 router.get("/similar/:uuid", async (req, res, next) => {
     try {
         const { uuid } = req.params;
-        const endPoint = `similar/${uuid}?api_token=${API_KEY}&${LANG_EN}`;
+        const endPoint = `similar/${uuid}?api_token=${API_KEY}&${LOCALE_US}&${LANG_EN}`;
         const {data} = await axios.get(`${BASE_URL}${endPoint}`)
         console.log('news/similar/UUID::', data);
         return res.json({ data })
