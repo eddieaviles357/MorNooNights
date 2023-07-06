@@ -11,6 +11,8 @@ const User = require("../models/User");
 const BASE_URL = `https://api.thenewsapi.com/v1/news/`;
 const LANG_EN = "language=en";
 
+// all endpoint have to have a valid user logged
+
 /** Gets Top news.
 * 
 * Returns possible results
