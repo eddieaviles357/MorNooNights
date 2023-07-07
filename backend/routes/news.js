@@ -1,18 +1,12 @@
 "use strict";
 
 const router = require("express").Router();
-const { API_KEY } = require("../config");
+const { BASE_URL, LANG_EN, LOCALE_US, API_TOKEN, LIMIT } = require("../config");
 const axios = require("axios");
 const { NotFoundError } = require("../MornoonightsError");
 const { ensureCorrectUserOrAdmin } = require("../middleware/auth");
 
 const User = require("../models/User");
-
-const BASE_URL = `https://api.thenewsapi.com/v1/news`;
-const LANG_EN = "language=en";
-const LOCALE_US = "locale=us";
-const API_TOKEN = `api_token=${API_KEY}`;
-const LIMIT = "limit=3"; // max allowed
 
 // all endpoint have to have a valid logged in user
 
@@ -46,7 +40,8 @@ router.get("/top", async (req, res, next) => {
 });
 
 /** Gets Sources.
-* 
+*  must provide page number -> /sources/1
+*
 * Returns possible results
 * {
 *	data: {
@@ -54,9 +49,10 @@ router.get("/top", async (req, res, next) => {
 *		data: [ { source_id,domain,language,locale, categories: [] } ]
 *   }
 */
-router.get("/sources", async (req, res, next) => {
+router.get("/sources/:page", async (req, res, next) => {
     try {
-        const endPoint = `sources?${API_TOKEN}&${LOCALE_US}&${LANG_EN}`;
+        const PAGE = `page=${req.params.page}`;
+        const endPoint = `sources?${API_TOKEN}&${LOCALE_US}&${LANG_EN}&${PAGE}`;
         const { data } = await axios.get(`${BASE_URL}/${endPoint}`)
         if(!data) throw new NotFoundError("No News found");
         console.log('news/sources::', data);
@@ -125,8 +121,9 @@ router.get("/category/:categories", async (req, res, next) => {
 router.get("/search/:value", async function(req, res, next) {
     try {
         const { value } = req.params;
-        const endPoint = `all?${API_TOKEN}&${LOCALE_US}&${LANG_EN}&search=${value}${LIMIT}`
-        const { data } = await axios.get(`${BASE_URL}/${endPoint}`)
+        const endPoint = `all?${API_TOKEN}&${LOCALE_US}&${LANG_EN}&search=${value}&${LIMIT}`
+        const { data } = await axios.get(`${BASE_URL}/${endPoint}`);
+        console.log('/search/VALUE::', data, '\nvalue',value)
         return res.json({ data });
     } catch (err) {
         return next(err);
