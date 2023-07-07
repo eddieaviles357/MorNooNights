@@ -175,12 +175,12 @@ router.get("/similar/:uuid", async (req, res, next) => {
 *  
 * Throws NotFoundError on no news.
 **/
-router.get("/:uuid", async (req, res, next) => {
+router.get("uuid/:uuid", async (req, res, next) => {
     try {
         const { uuid } = req.params;
         const endPoint = `uuid/${uuid}?${API_TOKEN}`;
         const { data } = await axios.get(`${BASE_URL}${endPoint}`)
-        console.log('news/UUID::', data);
+        console.log('news/UUID/uuid::', data);
         return res.json({ data })
     } catch (err) {
         next(err);
