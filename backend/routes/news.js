@@ -12,6 +12,7 @@ const BASE_URL = `https://api.thenewsapi.com/v1/news`;
 const LANG_EN = "language=en";
 const LOCALE_US = "locale=us";
 const API_TOKEN = `api_token=${API_KEY}`;
+const LIMIT = "limit=3"; // max allowed
 
 // all endpoint have to have a valid logged in user
 
@@ -34,7 +35,7 @@ const API_TOKEN = `api_token=${API_KEY}`;
 **/
 router.get("/top", async (req, res, next) => {
     try {
-        const endPoint = `top?${API_TOKEN}&${LOCALE_US}&${LANG_EN}`;
+        const endPoint = `top?${API_TOKEN}&${LOCALE_US}&${LANG_EN}&${LIMIT}`;
         const { data } = await axios.get(`${BASE_URL}/${endPoint}`);
         if(!data) throw new NotFoundError("No News found");
         console.log('news/top::', data);
@@ -91,7 +92,7 @@ router.get("/sources", async (req, res, next) => {
 router.get("/category/:categories", async (req, res, next) => {
     try {
         const { categories } = req.params;
-        const endPoint = `all?${API_TOKEN}&${LOCALE_US}&${LANG_EN}&${`categories=${categories}`}`;
+        const endPoint = `all?${API_TOKEN}&${LOCALE_US}&${LANG_EN}&${`categories=${categories}&${LIMIT}`}`;
         const { data } = await axios.get(`${BASE_URL}/${endPoint}`);
         console.log('news/CATEGORY/:categories::', data);
         return res.json({ data })
@@ -124,7 +125,7 @@ router.get("/category/:categories", async (req, res, next) => {
 router.get("/search/:value", async function(req, res, next) {
     try {
         const { value } = req.params;
-        const endPoint = `all?${API_TOKEN}&${LOCALE_US}&${LANG_EN}&search=${value}`
+        const endPoint = `all?${API_TOKEN}&${LOCALE_US}&${LANG_EN}&search=${value}${LIMIT}`
         const { data } = await axios.get(`${BASE_URL}/${endPoint}`)
         return res.json({ data });
     } catch (err) {
@@ -154,7 +155,7 @@ router.get("/search/:value", async function(req, res, next) {
 router.get("/similar/:uuid", async (req, res, next) => {
     try {
         const { uuid } = req.params;
-        const endPoint = `similar/${uuid}?${API_TOKEN}&${LOCALE_US}&${LANG_EN}`;
+        const endPoint = `similar/${uuid}?${API_TOKEN}&${LOCALE_US}&${LANG_EN}&${LIMIT}`;
         const { data } = await axios.get(`${BASE_URL}/${endPoint}`)
         console.log('news/similar/UUID::', data);
         return res.json({ data })
