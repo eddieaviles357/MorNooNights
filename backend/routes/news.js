@@ -11,8 +11,9 @@ const User = require("../models/User");
 const BASE_URL = `https://api.thenewsapi.com/v1/news/`;
 const LANG_EN = "language=en";
 const LOCALE_US = "locale=us";
+const API_TOKEN = `api_token=${API_KEY}`;
 
-// all endpoint have to have a valid user logged
+// all endpoint have to have a valid logged in user
 
 /** Gets Top news.
 * 
@@ -33,8 +34,8 @@ const LOCALE_US = "locale=us";
 **/
 router.get("/top", async (req, res, next) => {
     try {
-        const endPoint = `top?api_token=${API_KEY}&${LOCALE_US}&${LANG_EN}`;
-        const {data} = await axios.get(`${BASE_URL}${endPoint}`);
+        const endPoint = `top?${API_TOKEN}&${LOCALE_US}&${LANG_EN}`;
+        const { data } = await axios.get(`${BASE_URL}${endPoint}`);
         if(!data) throw new NotFoundError("No News found");
         console.log('news/top::', data);
         return res.json({ data })
@@ -54,8 +55,8 @@ router.get("/top", async (req, res, next) => {
 */
 router.get("/sources", async (req, res, next) => {
     try {
-        const endPoint = `sources?api_token=${API_KEY}&${LOCALE_US}&${LANG_EN}`;
-        const {data} = await axios.get(`${BASE_URL}${endPoint}`)
+        const endPoint = `sources?${API_TOKEN}&${LOCALE_US}&${LANG_EN}`;
+        const { data } = await axios.get(`${BASE_URL}${endPoint}`)
         if(!data) throw new NotFoundError("No News found");
         console.log('news/sources::', data);
         return res.json({ data })
@@ -63,27 +64,6 @@ router.get("/sources", async (req, res, next) => {
         return next(err);
     }
 });
-
-/** Gets news Headlines. ( ONLY FOR PAID ACCOUTNS)
-* 
-* Returns latest headlines
-*  
-* Throws NotFoundError on no news.
-**/
-// router.get("/headlines", async (req, res, next) => {
-//     try {
-//         const endPoint = `headlines?api_token=${API_KEY}&${LOCALE_US}&${LANG_EN}`;
-//         const {data} = await axios.get(`${BASE_URL}${endPoint}`)
-//         if(!data) throw new NotFoundError("No News found");
-//         console.log('news/HEADLINES::', data);
-//         return res.json({ data })
-//     } catch (err) {
-//         return next(err);
-//     }
-// });
-
-
-
 
 /** Gets news by categories.
 *  categories can be -> tech, travel, business, entertainment, general, food, politics
@@ -110,8 +90,8 @@ router.get("/sources", async (req, res, next) => {
 router.get("/category/:categories", async (req, res, next) => {
     try {
         const { categories } = req.params;
-        const endPoint = `all?api_token=${API_KEY}&${LOCALE_US}&${LANG_EN}&${`categories=${categories}`}`;
-        const {data} = await axios.get(`${BASE_URL}${endPoint}`);
+        const endPoint = `all?${API_TOKEN}&${LOCALE_US}&${LANG_EN}&${`categories=${categories}`}`;
+        const { data } = await axios.get(`${BASE_URL}${endPoint}`);
         console.log('news/CATEGORY/:categories::', data);
         return res.json({ data })
     } catch (err) {
@@ -119,13 +99,37 @@ router.get("/category/:categories", async (req, res, next) => {
     }
 });
 
-// https://api.thenewsapi.com/v1/news/all?api_token=YOUR_API_TOKEN&search=usd | gbp
 /** Gets news by search.
 * 
 * Returns news obj
+* {
+*	data: {
+*       meta: { found, returned, limit, page },
+*		data: [
+*			{
+*				uuid, title, description, keywords,
+*				snippet, url, image_url, language,
+*				published_at, source, categories: [], relevance_score
+*			}
+*		]
+*	}
+* }
 *  
-* Throws NotFoundError on no news.
+* Returns data object with no data.
+* {
+*	data: { meta: { found, returned, limit, page }, data: [] }
+* }
 **/
+router.get("/search/:searchby", async function(req, res, next) {
+    try {
+        const { searchby } = req.params;
+        const endPoint = `all?${API_TOKEN}&${LOCALE_US}&${LANG_EN}&search=${searchby}`
+        const { data } = await axios.get(`${BASE_URL}${endPoint}`)
+        return res.json({ data });
+    } catch (err) {
+        return next(err);
+    }
+});
 
 
 
@@ -149,8 +153,8 @@ router.get("/category/:categories", async (req, res, next) => {
 router.get("/similar/:uuid", async (req, res, next) => {
     try {
         const { uuid } = req.params;
-        const endPoint = `similar/${uuid}?api_token=${API_KEY}&${LOCALE_US}&${LANG_EN}`;
-        const {data} = await axios.get(`${BASE_URL}${endPoint}`)
+        const endPoint = `similar/${uuid}?${API_TOKEN}&${LOCALE_US}&${LANG_EN}`;
+        const { data } = await axios.get(`${BASE_URL}${endPoint}`)
         console.log('news/similar/UUID::', data);
         return res.json({ data })
     } catch (err) {
@@ -174,8 +178,8 @@ router.get("/similar/:uuid", async (req, res, next) => {
 router.get("/:uuid", async (req, res, next) => {
     try {
         const { uuid } = req.params;
-        const endPoint = `uuid/${uuid}?api_token=${API_KEY}`;
-        const {data} = await axios.get(`${BASE_URL}${endPoint}`)
+        const endPoint = `uuid/${uuid}?${API_TOKEN}`;
+        const { data } = await axios.get(`${BASE_URL}${endPoint}`)
         console.log('news/UUID::', data);
         return res.json({ data })
     } catch (err) {
@@ -197,6 +201,8 @@ router.get("/:uuid", async (req, res, next) => {
 * Returns an Empty array [] if no recent news exist.
 *
 * If an error occurs in retrieving recent news an error obj will return { error: msg }
+*
+* Must be correct user or admin
 **/
 router.get("/:username/recents", ensureCorrectUserOrAdmin, async (req, res, next) => {
     try {
@@ -208,7 +214,7 @@ router.get("/:username/recents", ensureCorrectUserOrAdmin, async (req, res, next
             recents = await Promise.all(
                 recents.map( async ({uuid, visitedAt}) => {
                     try {
-                        const endPoint = `uuid/${uuid}?api_token=${API_KEY}`;
+                        const endPoint = `uuid/${uuid}?${API_TOKEN}`;
                         const {data} = await axios.get(`${BASE_URL}${endPoint}`);
                         data['visitedAt'] = visitedAt; // add visitedAt key and value
                         return data;
@@ -224,5 +230,23 @@ router.get("/:username/recents", ensureCorrectUserOrAdmin, async (req, res, next
         return next(err);
     }
 });
+
+/** Gets news Headlines. ( ONLY FOR PAID ACCOUTNS)
+* 
+* Returns latest headlines
+*  
+* Throws NotFoundError on no news.
+**/
+// router.get("/headlines", async (req, res, next) => {
+//     try {
+//         const endPoint = `headlines?api_token=${API_KEY}&${LOCALE_US}&${LANG_EN}`;
+//         const {data} = await axios.get(`${BASE_URL}${endPoint}`)
+//         if(!data) throw new NotFoundError("No News found");
+//         console.log('news/HEADLINES::', data);
+//         return res.json({ data })
+//     } catch (err) {
+//         return next(err);
+//     }
+// });
 
 module.exports = router;
