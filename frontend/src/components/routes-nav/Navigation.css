@@ -1,0 +1,13 @@
+.Nav {
+    background-color: aliceblue;
+    padding: 16px 32px;
+}
+
+.Nav a {
+    margin-right: 16px;
+}
+
+.Nav a.active {
+    font-weight: bold;
+    text-decoration: none;
+}
