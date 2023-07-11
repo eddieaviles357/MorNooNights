@@ -107,6 +107,31 @@ class User {
         return recents;
     }
 
+    /** Get user info.
+     * 
+     * returns user obj
+     */
+    static async get(username) {
+        const userRes = await db.query(
+            `SELECT 
+                username, 
+                first_name AS "firstName", 
+                last_name AS "lastName", 
+                email, 
+                is_admin AS "isAdmin", 
+                created_at AS "createdAt"
+            FROM users
+            WHERE username = $1`,
+            [username],
+        );
+    
+        const user = userRes.rows[0];
+    
+        if (!user) throw new NotFoundError(`No User: ${username}`);
+    
+        return user;
+      }
+
     /** Delete given user from database; returns undefined. */
 
     static async remove(username) {
