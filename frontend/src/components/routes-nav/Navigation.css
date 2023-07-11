@@ -1,13 +1,31 @@
+
 .Nav {
-    background-color: aliceblue;
+    background-color: var(--secondary, #90b4ce);
     padding: 16px 32px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .Nav a {
+    text-decoration: none;
     margin-right: 16px;
 }
 
 .Nav a.active {
     font-weight: bold;
-    text-decoration: none;
 }
+
+/* ul list navigation */
+.Nav ul {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+}
+
+/* @media screen and (max-width: 900px) {
+    .Nav ul {
+      flex-direction: column;
+    }
+  } */
