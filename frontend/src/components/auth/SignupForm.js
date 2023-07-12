@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import "./Auth.css";
+import Alert from "../common/Alert";
 /** Signup form.
  *
  * Shows form.
@@ -97,13 +98,13 @@ function SignupForm({ signup }) {
                 </div>
 
                 {formErrors.length
-                    ? <div>Error!!!</div>
+                    ? <Alert type="danger" messages={formErrors} />
                     : null
                 }
 
                 <button
                     type="submit"
-                    className="btn btn-primary float-right"
+                    className="btn btn-primary float-right mt-3"
                     onSubmit={handleSubmit}
                 >
                   Submit
