@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import "./Auth.css";
+import Alert from "../common/Alert";
 // Login form.
  
 function LoginForm({ login }) {
@@ -9,17 +10,19 @@ function LoginForm({ login }) {
     username: "",
     password: "",
   });
+  // will be used to display error to user
   const [formErrors, setFormErrors] = useState([]);
 
   // Handle form submit:
   // Calls login func prop
-
+  // if any errors occur an Alert will be shown to user
   async function handleSubmit(evt) {
     evt.preventDefault();
     let result = await login(formData);
     if (result.success) {
       history("/"); // ***************** pending implementation *******
     } else {
+      // something went wrong
       setFormErrors(result.errors);
     }
   }
@@ -27,13 +30,13 @@ function LoginForm({ login }) {
   /** Update form data field */
   function handleChange(evt) {
     const { name, value } = evt.target;
-    setFormData(l => ({ ...l, [name]: value }));
+    setFormData(currInputVal => ({ ...currInputVal, [name]: value }));
   }
 
   return (
       <div className="LoginForm">
         <div className="container col-md-6 offset-md-3 col-lg-4 offset-lg-4">
-          <h3 className="mb-3">Log In</h3>
+          <h3 className="text-center mb-3">Log In</h3>
 
           <div className="card">
             <div className="card-body">
@@ -63,11 +66,11 @@ function LoginForm({ login }) {
                 </div>
 
                 {formErrors.length
-                    ? <div>Error!!</div>
+                    ? <Alert type="danger" messages={formErrors} />
                     : null}
 
                 <button
-                    className="btn btn-primary float-right"
+                    className="btn btn-primary float-right mt-3"
                     onSubmit={handleSubmit}
                 >
                   Submit
