@@ -2,7 +2,10 @@
 
 const db = require("../db.js");
 const bcrypt = require("bcrypt");
-const { BadRequestError } = require("../MornoonightsError.js");
+const { 
+    BadRequestError,
+    UnauthorizedError 
+    } = require("../MornoonightsError.js");
 const { BCRYPT_WORK_FACTOR } = require("../config.js");
 
 class User {
