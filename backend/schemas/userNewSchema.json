@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "http://www.mornoonightsnews.com/userAuthSchema.json",
+  "title": "New User",
+  "description": "New User",
+  "type": "object",
+  "properties": {
+    "username": {
+      "description": "username",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 30
+    },
+    "password": {
+      "description": "password",
+      "type": "string",
+      "minLength": 6,
+      "maxLength": 25
+    },
+    "firstName": {
+      "description": "first name",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 25
+    },
+    "lastName": {
+      "description": "last name",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 25
+    },
+    "email": {
+      "description": "email",
+      "type": "string",
+      "minLength": 6,
+      "maxLength": 60,
+      "format": "email"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "username",
+    "firstName",
+    "lastName",
+    "password",
+    "email"
+  ]
+}
