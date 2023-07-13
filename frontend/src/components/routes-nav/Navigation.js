@@ -12,9 +12,10 @@ export default function Navigation({ logout }) {
     return (
         <ul>
           <li>
-            <Link to="/" onClick={logout}>
+            <NavLink to="/news">News</NavLink>
+            <NavLink to="/" onClick={logout}>
               Log out {currentUser.first_name || currentUser.username}
-            </Link>
+            </NavLink>
           </li>
         </ul>
     );
@@ -23,8 +24,8 @@ export default function Navigation({ logout }) {
   function loggedOutNav() {
     return (
         <ul>
-            <li><NavLink to='/login'>Login</NavLink></li>
-            <li><NavLink to='/signup'>Sign Up</NavLink></li>
+            <li><NavLink to="/login">Login</NavLink></li>
+            <li><NavLink to="/signup">Sign Up</NavLink></li>
         </ul>
     );
   };
@@ -46,7 +47,7 @@ export default function Navigation({ logout }) {
 //     return (
 //         <nav className="navbar navbar-expand-md Nav">
 //             <div className="container-fluid">
-//                 <Link className="navbar-brand" to='/'>MorNooNightsNews</Link>
+//                 <Link className="navbar-brand" to="/">MorNooNightsNews</Link>
 //                 <button 
 //                     className="navbar-toggler" 
 //                     type="button" 
@@ -65,13 +66,13 @@ export default function Navigation({ logout }) {
 //                     </form>
 //                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
 //                         <li className="nav-item">
-//                             <NavLink className="nav-link" to='/profile'>Profile</NavLink>
+//                             <NavLink className="nav-link" to="/profile">Profile</NavLink>
 //                         </li>
 //                         <li className="nav-item">
-//                             <NavLink className="nav-link" to='/profile'>Profile</NavLink>
+//                             <NavLink className="nav-link" to="/profile">Profile</NavLink>
 //                         </li>
 //                         <li className="nav-item">
-//                             <NavLink className="nav-link" to='/profile'>Profile</NavLink>
+//                             <NavLink className="nav-link" to="/profile">Profile</NavLink>
 //                         </li>
 //                     </ul>
 //                 </div>
