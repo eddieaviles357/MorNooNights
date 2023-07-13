@@ -5,7 +5,7 @@ import Alert from "../common/Alert";
 // Login form.
  
 function LoginForm({ login }) {
-  const history = useNavigate();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -20,7 +20,7 @@ function LoginForm({ login }) {
     evt.preventDefault();
     let result = await login(formData);
     if (result.success) {
-      history("/"); // ***************** pending implementation *******
+      navigate("/"); // ***************** pending implementation *******
     } else {
       // something went wrong
       setFormErrors(result.errors);
