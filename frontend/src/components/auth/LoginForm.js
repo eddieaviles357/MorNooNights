@@ -20,7 +20,7 @@ function LoginForm({ login }) {
     evt.preventDefault();
     let result = await login(formData);
     if (result.success) {
-      navigate("/"); // ***************** pending implementation *******
+      navigate("/");
     } else {
       // something went wrong
       setFormErrors(result.errors);

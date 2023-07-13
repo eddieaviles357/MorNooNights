@@ -10,7 +10,7 @@ import Alert from "../common/Alert";
  */
 
 function SignupForm({ signup }) {
-  const history = useNavigate();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -29,7 +29,7 @@ function SignupForm({ signup }) {
     evt.preventDefault();
     let result = await signup(formData);
     if (result.success) {
-      history("/"); // **************** needs implementation ****************
+      navigate("/");
     } else {
       setFormErrors(result.errors);
     }
