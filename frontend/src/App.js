@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import "./App.css";
 import Navigation from "./components/routes-nav/Navigation"
 import AppRoutes from "./components/routes-nav/Routes"
-import jwt from "jsonwebtoken";
 import useLocalStorage from "./components/hooks/useLocalStorage";
-import MorNooNightsNewsAPI from "./api/api";
 import UserContext from "./components/auth/UserContext";
+import { BrowserRouter } from 'react-router-dom';
+import MorNooNightsNewsAPI from "./api/api";
+import jwt from "jsonwebtoken";
+import "./App.css";
 
 // Used for storing token in localStorage for "remember me" re-login
 export const TOKEN_STORAGE_ID = "mornoonightsnews-token";
@@ -79,10 +80,12 @@ function App() {
 
   return (
     <div className="App">
+    <BrowserRouter>
       <UserContext.Provider value={{ currentUser, setCurrentUser }}>
         <Navigation logout={logout}/>
         <AppRoutes login={login} signup={signup}/>
       </UserContext.Provider>
+    </BrowserRouter>
     </div>
   );
 }
