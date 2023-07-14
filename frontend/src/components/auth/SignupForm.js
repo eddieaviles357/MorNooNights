@@ -22,14 +22,15 @@ function SignupForm({ signup }) {
 
   /** Handle form submit:
    *
-   * Calls login func prop and, if successful.
+   * Calls singup func prop and, if successful routes to news route.
    */
 
   async function handleSubmit(evt) {
     evt.preventDefault();
     let result = await signup(formData);
     if (result.success) {
-      navigate("/");
+      // navigates to news route when successfuly singup is received
+      setTimeout(() => navigate("/news", { replace: -1}), 0);
     } else {
       setFormErrors(result.errors);
     }
@@ -55,6 +56,7 @@ function SignupForm({ signup }) {
                       className="form-control"
                       value={formData.username}
                       onChange={handleChange}
+                      autoFocus={true}
                   />
                 </div>
                 <div className="form-group">

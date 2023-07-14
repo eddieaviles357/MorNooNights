@@ -18,9 +18,11 @@ function LoginForm({ login }) {
   // if any errors occur an Alert will be shown to user
   async function handleSubmit(evt) {
     evt.preventDefault();
+
     let result = await login(formData);
     if (result.success) {
-      navigate("/");
+      // navigates to news route when successfuly login is received
+      setTimeout(() => navigate("/news", { replace: -1}), 0);
     } else {
       // something went wrong
       setFormErrors(result.errors);
@@ -49,6 +51,7 @@ function LoginForm({ login }) {
                       value={formData.username}
                       onChange={handleChange}
                       autoComplete="username"
+                      autoFocus={true}
                       required
                   />
                 </div>
