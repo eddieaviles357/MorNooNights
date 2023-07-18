@@ -7,6 +7,7 @@ const app = express();
 const { NotFoundError } = require("./MornoonightsError");
 const newsRoutes = require("./routes/news");
 const authRoutes = require("./routes/auth");
+const userRoutes = require("./routes/users");
 const { 
     authenticateJWT, 
     ensureLoggedIn,
@@ -19,6 +20,7 @@ app.use(authenticateJWT);
 
 app.use("/news", ensureLoggedIn, newsRoutes);
 app.use("/auth", authRoutes);
+app.use("/users", userRoutes);
 
 /** Handle 404 errors -- this matches everything */
 app.use(function (req, res, next) {
