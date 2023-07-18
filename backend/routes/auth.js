@@ -1,3 +1,5 @@
+"use strict";
+
 const router = require("express").Router();
 const jsonschema = require("jsonschema");
 const User = require("../models/User");
