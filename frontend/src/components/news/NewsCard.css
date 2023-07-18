@@ -1,0 +1,36 @@
+.NewsCard {
+  position: relative;
+  display: inline-block;
+  min-width: 330px;
+  width: 25%;
+
+  margin: 10px;
+
+  border: 2px solid black;
+  border-radius: 10px;
+
+  overflow: hidden;
+}
+
+.NewsCard .Body {
+  padding: 10px;
+  background-color: var(--headline);
+  color: var(--main);
+}
+
+.img-container {
+  height: 300px;
+  width: 400px;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.img-container img {
+  height: auto;
+  width: 400px;
+}
+
+.btn:hover, .btn:focus, .btn:active, .btn.active, .open>.dropdown-toggle.btn {
+  color: var(--button-text);
+  background-color: #f06f87;
+}
