@@ -35,8 +35,9 @@ class MorNooNightsNewsAPI {
   }
 
   static async getTopNews() {
-    let res = await this.request(`users`);
+    let res = await this.request(`news/top`);
     console.log('FRONTEND::TOP::NEWS', res);
+    return res;
   }
 
   // Get token for login.
