@@ -45,11 +45,11 @@ export default function TopNews() {
   console.log('TOP::NEWS::API::DATA', topNews)
 
   return (
-      <div className="d-flex flex-row justify-content-center align-items-center" style={{width: "100%;"}}>
+      <div>
         {/* <SearchForm searchFor={search} /> */}
         {topNews.data.length
             ? (
-                <div className="d-flex flex-row justify-content-center align-items-center flex-wrap">
+                <div className="d-flex flex-row justify-content-center align-items-center flex-wrap my-5">
                   {topNews.data.map(n => (
                     <NewsCard 
                       key={n.uuid}
