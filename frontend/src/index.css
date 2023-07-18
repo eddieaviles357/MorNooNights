@@ -40,3 +40,8 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.Btn-tertiary {
+  background-color: var(--tertiary);
+  color: var(--button-text);
+}
