@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import SearchForm from "../common/SearchForm";
 import MorNooNightsNewsAPI from "../../api/api";
 import NewsCard from "./NewsCard";
 
@@ -19,22 +18,21 @@ export default function TopNews() {
   const [errors, setErrors] = useState(null);
 
   useEffect(() => {
+      /** Triggered by search form submit; reloads news. */
+    async function search(name) {
+      try {
+        // let news = await MorNooNightsNewsAPI.getTopNews(name);
+        let news = fakeData;
+        console.log('inside useEffect news["data"]', news['data'])
+
+        setTopNews(news.data);
+      } catch (err) {
+        setErrors(err)
+      }
+    };
     console.debug("TopNews useEffect");
     search();
   }, []);
-
-  /** Triggered by search form submit; reloads news. */
-  async function search(name) {
-    try {
-      let news = await MorNooNightsNewsAPI.getTopNews(name);
-      // console.log('inside useEffect news["data"]', news['data'])
-      // let news = fakeData;
-
-      setTopNews(news.data);
-    } catch (err) {
-      setErrors(err)
-    }
-  };
 
   // if there are any errors display them to user
   if (errors) {
@@ -47,7 +45,6 @@ export default function TopNews() {
 
   return (
       <div className="d-flex flex-column align-items-center">
-        <SearchForm searchFor={search} />
         {topNews.data.length
             ? (
                 <div className="d-flex flex-row justify-content-center align-items-center flex-wrap my-5">
@@ -115,7 +112,7 @@ const fakeData = {data: {
   language: "en",
   categories: ['general', 'business'],
   locale: "us",
-  image_url: "https://akns-images.eonline.com/eol_images/Entire_Site/2023617/rs_1200x1200-230717170936-1200-Emily-Blunt-Cillian-Murphy.cm.71723.jpg?fit=around%7C1080:1080&output-quality=90&crop=1080:1080;center,top",
+  image_url: "https://image.cnbcfm.com/api/v1/image/107273388-1689733279342-gettyimages-821304076-singaporesunset2.jpeg?v=1689733412&w=1920&h=1080",
   source: "cnbc.com",
   published_at: "2023-07-19T02:24:26.000000Z",
 }
