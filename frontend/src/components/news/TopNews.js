@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-// import SearchForm from "../common/SearchForm";
+import SearchForm from "../common/SearchForm";
 import MorNooNightsNewsAPI from "../../api/api";
 import NewsCard from "./NewsCard";
 
@@ -20,20 +20,21 @@ export default function TopNews() {
 
   useEffect(() => {
     console.debug("TopNews useEffect");
-    /** Triggered by search form submit; reloads news. */
-    async function search(name) {
-      try {
-        // let news = await MorNooNightsNewsAPI.getTopNews(name);
-        // console.log('inside useEffect news["data"]', news['data'])
-        let news = fakeData;
-
-        setTopNews(news.data);
-      } catch (err) {
-        setErrors(err)
-      }
-    }
     search();
   }, []);
+
+  /** Triggered by search form submit; reloads news. */
+  async function search(name) {
+    try {
+      let news = await MorNooNightsNewsAPI.getTopNews(name);
+      // console.log('inside useEffect news["data"]', news['data'])
+      // let news = fakeData;
+
+      setTopNews(news.data);
+    } catch (err) {
+      setErrors(err)
+    }
+  };
 
   // if there are any errors display them to user
   if (errors) {
@@ -45,8 +46,8 @@ export default function TopNews() {
   console.log('TOP::NEWS::API::DATA', topNews)
 
   return (
-      <div>
-        {/* <SearchForm searchFor={search} /> */}
+      <div className="d-flex flex-column align-items-center">
+        <SearchForm searchFor={search} />
         {topNews.data.length
             ? (
                 <div className="d-flex flex-row justify-content-center align-items-center flex-wrap my-5">
@@ -105,17 +106,17 @@ const fakeData = {data: {
   source: "eonline.com",
   published_at: "2023-07-18T01:49:03.000000Z",
 }, {
-  uuid: "ab6b9480-a610-4a71-a7e4-6023b525c105",
-  title: "Emily Blunt Reveals Cillian Murphy’s Strict Oppenheimer Diet",
-  description: "The shed was ablaze when firefighters arrived, with flames “threatening to spread to the residence and nearby woods,” officials said.",
-  keywords: "",
-  snippet: "Watch : Matt Damon & Emily Blunt Reveal Their Daughters' CLOSE Bond\n\nCillian Murphy's role in Oppenheimer pushed him to extreme lengths.\n\nIn fact, his co-star E...",
-  url: "https://www.eonline.com/news/1380473/emily-blunt-reveals-cillian-murphy's-strict-lessigreateroppenheimerlessigreater-diet?cmpid=rss-syndicate-genericrss-us-top_stories",  
+  uuid: 'cad54b33-860d-4bbd-96e6-e5551ec4fac2',
+  title: "Singapore’s passport is now the most powerful in the world. Here's how other countries ranked",
+  description: "Singapore has overtaken Japan to boast the most powerful passport in the world, the Henley Passport Index showed.",
+  keywords: "U.S. Economy, Asia Economy, South Korea, Singapore, Japan, business news",
+  snippet: "Singapore has overtaken Japan to boast of the world's most powerful passport, the Henley Passport Index showed.\n\nWhat it means is that the Singapore passport al...",
+  url: "https://www.cnbc.com/2023/07/19/henley-passport-index-2023-singapore-germany-italy-spain-rank-top-.html",  
   language: "en",
-  categories: ['entertainment', 'general'],
+  categories: ['general', 'business'],
   locale: "us",
   image_url: "https://akns-images.eonline.com/eol_images/Entire_Site/2023617/rs_1200x1200-230717170936-1200-Emily-Blunt-Cillian-Murphy.cm.71723.jpg?fit=around%7C1080:1080&output-quality=90&crop=1080:1080;center,top",
-  source: "eonline.com",
-  published_at: "2023-07-18T01:49:03.000000Z",
+  source: "cnbc.com",
+  published_at: "2023-07-19T02:24:26.000000Z",
 }
 ]}}
