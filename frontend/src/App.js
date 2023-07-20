@@ -77,12 +77,17 @@ function App() {
     }
   };
 
-  if (!infoLoaded) return <div>Loading...</div>;
+  if (!infoLoaded) return <div className="text-center">Loading...</div>;
 
   return (
     <div className="App">
     <BrowserRouter>
-      <UserContext.Provider value={{ currentUser, setCurrentUser, visitedNews, setVisitedNews }}>
+      <UserContext.Provider value={{ 
+        currentUser, 
+        setCurrentUser, 
+        visitedNews, 
+        setVisitedNews 
+        }}>
         <Navigation logout={logout}/>
         <AppRoutes login={login} signup={signup}/>
       </UserContext.Provider>
