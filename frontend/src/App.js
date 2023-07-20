@@ -15,6 +15,7 @@ function App() {
   const [infoLoaded, setInfoLoaded] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
   const [token, setToken] = useLocalStorage(TOKEN_STORAGE_ID);
+  const [visitedNews, setVisitedNews] = useLocalStorage("recents");
 
   console.debug("currentUser", currentUser, "token", token);
 
@@ -81,7 +82,7 @@ function App() {
   return (
     <div className="App">
     <BrowserRouter>
-      <UserContext.Provider value={{ currentUser, setCurrentUser }}>
+      <UserContext.Provider value={{ currentUser, setCurrentUser, visitedNews, setVisitedNews }}>
         <Navigation logout={logout}/>
         <AppRoutes login={login} signup={signup}/>
       </UserContext.Provider>
