@@ -22,7 +22,7 @@ function LoginForm({ login }) {
     let result = await login(formData);
     if (result.success) {
       // navigates to news route when successfuly login is received
-      setTimeout(() => navigate("/news", { replace: -1}), 0);
+      setTimeout(() => navigate("/news", { replace: true}), 0);
     } else {
       // something went wrong
       setFormErrors(result.errors);
