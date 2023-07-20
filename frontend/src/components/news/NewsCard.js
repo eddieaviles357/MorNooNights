@@ -31,7 +31,7 @@ export default function NewsCard({ uuid, title, snippet, url, imageURL, publishe
       <div className="Body card-body">
         <h5 className="card-title">{title}</h5>
         <p className="card-text">{snippet}</p>
-        <p className="card-text fst-italic">Published: {new Date(publishedAt).toUTCString()}</p>
+        <p className="card-text fst-italic">Published: { new Date(publishedAt).toUTCString() }</p>
         <Link onClick={handleVisitedClick} className="Btn-tertiary btn" to={url} target="_blank">Read More</Link>
       </div>
     </div>
