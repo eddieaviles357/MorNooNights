@@ -48,20 +48,25 @@ export default function TopNews() {
         {topNews.data.length
             ? (
                 <div className="d-flex flex-row justify-content-center align-items-center flex-wrap my-5">
-                  {topNews.data.map(n => (
+                  {topNews.data.map(({
+                    uuid, title, description, keywords, snippet, 
+                    url, language, categories,
+                    locale, image_url, source, published_at
+                  }) => (
                     <NewsCard 
-                      key={n.uuid}
-                      title={n.title}
-                      description={n.description}
-                      keywords={n.keywords}
-                      snippet={n.snippet}
-                      url={n.url}
-                      language={n.language}
-                      categorires={n.categorires}
-                      locale={n.locale}
-                      imageURL={n.image_url}
-                      source={n.source}
-                      publishedAt={n.published_at} />
+                      key={uuid}
+                      uuid={uuid}
+                      title={title}
+                      description={description}
+                      keywords={keywords}
+                      snippet={snippet}
+                      url={url}
+                      language={language}
+                      categories={categories}
+                      locale={locale}
+                      imageURL={image_url}
+                      source={source}
+                      publishedAt={published_at} />
                       )
                     )
                   }
