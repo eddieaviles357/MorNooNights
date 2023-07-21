@@ -32,27 +32,35 @@ class MorNooNightsNewsAPI {
   static async getCurrentUser(username) {
     let res = await this.request(`users/${username}`);
     return res.user;
-  }
+  };
 
   static async getTopNews() {
     let res = await this.request(`news/top`);
     console.log('FRONTEND::TOP::NEWS', res);
     return res;
-  }
+  };
+
+  static async getRecents(username) {
+    const res = await this.request(`news/${username}/recents`);
+    console.log('FRONTEND::RECENTS', res);
+    return res;
+  };
 
   // Get token for login.
 
   static async login(data) {
     let res = await this.request(`auth/token`, data, "post");
     return res.token;
-  }
+  };
 
   // Signup for site.
 
   static async signup(data) {
     let res = await this.request(`auth/register`, data, "post");
     return res.token;
-  }
+  };
+
+
 };
 
 export default MorNooNightsNewsAPI;
