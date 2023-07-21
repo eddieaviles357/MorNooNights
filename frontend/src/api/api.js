@@ -46,6 +46,12 @@ class MorNooNightsNewsAPI {
     return res;
   };
 
+  static async updateRecents(username, data) {
+    console.log("API::DATA", data)
+    const res = await this.request(`news/${username}/recents`, data , "post");
+    console.log("UPDATING::RECENTS::", res);
+  }
+
   // Get token for login.
 
   static async login(data) {
