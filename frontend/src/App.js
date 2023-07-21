@@ -43,9 +43,17 @@ function App() {
   }, [token]);
 
   // Handles site logout.
-  function logout() {
+  async function logout() {
+    try {
+      const { username } = currentUser;
+      const data = { recents: JSON.parse(visitedNews) };
+      await MorNooNightsNewsAPI.updateRecents(username, data);
+    } catch (errors) {
+      alert("failed to update recents", errors);
+    }
     setCurrentUser(null);
     setToken(null);
+    // update recent news
   }
 
   /** Handles site signup.
