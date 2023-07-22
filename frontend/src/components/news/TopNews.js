@@ -73,8 +73,6 @@ export default function TopNews() {
                     <NewsCard 
                       key={newsObj.uuid}
                       newsObj={newsObj}
-                      visitedNews={visitedNews}
-                      setVisitedNews={setVisitedNews}
                       updateRecentlyVisited={updateRecentlyVisited} />
                       )
                     )
