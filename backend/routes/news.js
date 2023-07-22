@@ -32,7 +32,7 @@ router.get("/top", async (req, res, next) => {
         const endPoint = `top?${API_TOKEN}&${LOCALE_US}&${LANG_EN}&${LIMIT}`;
         const { data } = await axios.get(`${BASE_URL}/${endPoint}`);
         if(!data) throw new NotFoundError("No News found");
-        console.log('news/top::', data);
+        console.log('GET::news/top::', data);
         return res.json({ data })
     } catch (err) {
         return next(err);
@@ -55,7 +55,7 @@ router.get("/sources/:page", async (req, res, next) => {
         const endPoint = `sources?${API_TOKEN}&${LOCALE_US}&${LANG_EN}&${PAGE}`;
         const { data } = await axios.get(`${BASE_URL}/${endPoint}`)
         if(!data) throw new NotFoundError("No News found");
-        console.log('news/sources::', data);
+        console.log('GET::news/sources::', data);
         return res.json({ data })
     } catch (err) {
         return next(err);
@@ -90,7 +90,7 @@ router.get("/category/:categories", async (req, res, next) => {
         const { categories } = req.params;
         const endPoint = `all?${API_TOKEN}&${LOCALE_US}&${LANG_EN}&${`categories=${categories}&${LIMIT}`}`;
         const { data } = await axios.get(`${BASE_URL}/${endPoint}`);
-        console.log('news/CATEGORY/:categories::', data);
+        console.log('GET::news/CATEGORY/:categories::', data);
         return res.json({ data })
     } catch (err) {
         return next(err);
@@ -123,7 +123,7 @@ router.get("/search/:value", async function(req, res, next) {
         const { value } = req.params;
         const endPoint = `all?${API_TOKEN}&${LOCALE_US}&${LANG_EN}&search=${value}&${LIMIT}`
         const { data } = await axios.get(`${BASE_URL}/${endPoint}`);
-        console.log('/search/VALUE::', data, '\nvalue',value)
+        console.log('GET::/search/VALUE::', data, '\nvalue',value)
         return res.json({ data });
     } catch (err) {
         return next(err);
@@ -154,7 +154,7 @@ router.get("/similar/:uuid", async (req, res, next) => {
         const { uuid } = req.params;
         const endPoint = `similar/${uuid}?${API_TOKEN}&${LOCALE_US}&${LANG_EN}&${LIMIT}`;
         const { data } = await axios.get(`${BASE_URL}/${endPoint}`)
-        console.log('news/similar/UUID::', data);
+        console.log('GET::news/similar/UUID::', data);
         return res.json({ data })
     } catch (err) {
         next(err);
@@ -179,7 +179,7 @@ router.get("uuid/:id", async (req, res, next) => {
         const { id } = req.params;
         const endPoint = `uuid/${id}?${API_TOKEN}`;
         const { data } = await axios.get(`${BASE_URL}/${endPoint}`)
-        console.log('news/UUID/id::', data);
+        console.log('GET::news/UUID/id::', data);
         return res.json({ data })
     } catch (err) {
         next(err);
@@ -218,13 +218,39 @@ router.get("/:username/recents", ensureCorrectUserOrAdmin, async (req, res, next
                         data['visitedAt'] = visitedAt; // add visitedAt key and value
                         return data;
                     } catch (err) {
-                        return {error: `could not fetch news uuid: ${uuid}`};
+                        console.log("GET::ERROR::FETCHING::RECENTS", err.message)
+                        return {
+                            error: `could not fetch news uuid: ${uuid}`, 
+                            message: err.message
+                        };
                     }
                 })
             );
         };
-        console.log('\nNEWS/{username}/RECENTS::', recents);
+        console.log('\nGET::NEWS/{username}/RECENTS::');
         return res.json({ recents });
+    } catch (err) {
+        return next(err);
+    }
+});
+
+/** Update recents news for User.
+* 
+* Returns undefined
+*  
+* Must be correct user or admin
+**/
+router.post("/:username/recents", ensureCorrectUserOrAdmin, async (req, res, next) => {
+    try {
+        const { username } = req.params; 
+        let { recents } = req.body;
+        console.log('\n\nreq.body:::::', recents)
+        recents.reduce( (prev, next) => {
+
+        }, )
+        
+        console.log('\nPOST::NEWS/{username}/RECENTS::');
+        return res.json({ success: true });
     } catch (err) {
         return next(err);
     }
