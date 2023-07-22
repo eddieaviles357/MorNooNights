@@ -29,6 +29,7 @@
 .img-container {
   height: 300px;
   width: 400px;
+  margin: 0;
   overflow: hidden;
   object-fit: cover;
 
