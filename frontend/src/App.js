@@ -85,6 +85,18 @@ function App() {
     }
   };
 
+  const updateRecentlyVisited = (news) => {
+    // if no data is available set to empty array
+    const visited = JSON.parse(visitedNews) || [];
+    const updatedNews = {...news, visitedAt: new Date().toGMTString() }
+    // allows only 5 entries
+    if(visited.length >= 5) visited.shift(); // remove 1st entry
+    visited.push(updatedNews)
+    console.log("__HANDLE_CLICK__", visited)
+    // stringify visited news and update values
+    setVisitedNews( _ => JSON.stringify(visited) )
+  }
+
   if (!infoLoaded) return <div className="text-center">Loading...</div>;
 
   return (
@@ -94,7 +106,8 @@ function App() {
         currentUser, 
         setCurrentUser, 
         visitedNews, 
-        setVisitedNews 
+        setVisitedNews,
+        updateRecentlyVisited
         }}>
         <Navigation logout={logout}/>
         <AppRoutes login={login} signup={signup}/>
