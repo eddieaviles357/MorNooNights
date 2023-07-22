@@ -42,14 +42,14 @@ class MorNooNightsNewsAPI {
 
   static async getRecents(username) {
     const res = await this.request(`news/${username}/recents`);
-    console.log('FRONTEND::RECENTS', res);
+    console.log('FRONTEND::RECENTS', typeof res);
     return res;
   };
 
   static async updateRecents(username, data) {
-    console.log("API::DATA", data)
+    console.log("API::UPDATE::RECENTS", data)
     const res = await this.request(`news/${username}/recents`, data , "post");
-    console.log("UPDATING::RECENTS::", res);
+    console.log("UPDATING::RECENTS::SUCCESS", res);
   }
 
   // Get token for login.
