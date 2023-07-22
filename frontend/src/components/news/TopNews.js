@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import MorNooNightsNewsAPI from "../../api/api";
 import NewsCard from "./NewsCard";
+import UserContext from "../auth/UserContext";
 
 /** Show page with Top News.
  *
@@ -16,14 +17,20 @@ export default function TopNews() {
 
   const [topNews, setTopNews] = useState(null);
   const [errors, setErrors] = useState(null);
+  const { 
+    currentUser, 
+    visitedNews, 
+    setVisitedNews, 
+    updateRecentlyVisited 
+  } = useContext(UserContext);
+  
 
   useEffect(() => {
       /** Triggered by search form submit; reloads news. */
     async function search(name) {
       try {
-        // let news = await MorNooNightsNewsAPI.getTopNews(name);
-        let news = fakeData;
-        console.log('inside useEffect news["data"]', news['data'])
+        // const news = await MorNooNightsNewsAPI.getTopNews(name);
+        const news = fakeData;
 
         setTopNews(news.data);
       } catch (err) {
@@ -32,6 +39,20 @@ export default function TopNews() {
     };
     console.debug("TopNews useEffect");
     search();
+  }, []);
+
+  useEffect(() => {
+    async function recents(username) {
+      try {
+        const {recents} = await MorNooNightsNewsAPI.getRecents(currentUser.username);
+        console.log('--RECENTS-API-CALL--', recents);
+        setVisitedNews( JSON.stringify(recents) );
+
+      } catch (err) {
+        setErrors(Array.from(err || err.message))
+      };
+    };
+    recents(currentUser.username);
   }, []);
 
   // if there are any errors display them to user
@@ -48,25 +69,13 @@ export default function TopNews() {
         {topNews.data.length
             ? (
                 <div className="d-flex flex-row justify-content-center align-items-center flex-wrap my-5">
-                  {topNews.data.map(({
-                    uuid, title, description, keywords, snippet, 
-                    url, language, categories,
-                    locale, image_url, source, published_at
-                  }) => (
+                  {topNews.data.map( newsObj => (
                     <NewsCard 
-                      key={uuid}
-                      uuid={uuid}
-                      title={title}
-                      description={description}
-                      keywords={keywords}
-                      snippet={snippet}
-                      url={url}
-                      language={language}
-                      categories={categories}
-                      locale={locale}
-                      imageURL={image_url}
-                      source={source}
-                      publishedAt={published_at} />
+                      key={newsObj.uuid}
+                      newsObj={newsObj}
+                      visitedNews={visitedNews}
+                      setVisitedNews={setVisitedNews}
+                      updateRecentlyVisited={updateRecentlyVisited} />
                       )
                     )
                   }
