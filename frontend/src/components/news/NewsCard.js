@@ -8,8 +8,6 @@ import "./NewsCard.css";
 
 function NewsCard({ 
     newsObj,
-    visitedNews, 
-    setVisitedNews,
     updateRecentlyVisited
     }) {
   console.log("NewsCard Rendered");
