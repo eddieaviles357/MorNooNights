@@ -12,6 +12,16 @@ CREATE TABLE recents (
     news_id TEXT NOT NULL,
     username VARCHAR(30) REFERENCES users ON DELETE CASCADE,
     visited_at TIMESTAMP NOT NULL DEFAULT NOW(),
+    description TEXT,
+    image_url TEXT,
+    keywords TEXT,
+    language TEXT,
+    locale TEXT,
+    published_at TIMESTAMP,
+    snippet TEXT,
+    source TEXT,
+    title TEXT,
+    url TEXT,
     PRIMARY KEY (news_id, username)
 );
 
@@ -19,5 +29,15 @@ CREATE TABLE favorites (
     news_id TEXT NOT NULL,
     username VARCHAR(30) REFERENCES users ON DELETE CASCADE,
     favorited_at TIMESTAMP NOT NULL DEFAULT NOW(),
+    description TEXT,
+    image_url TEXT,
+    keywords TEXT,
+    language TEXT,
+    locale TEXT,
+    published_at TIMESTAMP,
+    snippet TEXT,
+    source TEXT,
+    title TEXT,
+    url TEXT,
     PRIMARY KEY (news_id, username)
 );
