@@ -97,7 +97,19 @@ class User {
 
     static async getRecents(username) {
         let results = await db.query(`
-            SELECT news_id AS "uuid", visited_at AS "visitedAt"
+            SELECT 
+                news_id AS "uuid", 
+                visited_at AS "visitedAt",
+                description,
+                image_url AS "imageURL",
+                keywords,
+                language,
+                locale,
+                published_at AS "publishedAt",
+                snippet,
+                source,
+                title,
+                url
             FROM recents
             WHERE username = $1
             ORDER BY "visitedAt" DESC
