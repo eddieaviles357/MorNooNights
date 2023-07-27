@@ -21,8 +21,7 @@ CREATE TABLE recents (
     snippet TEXT,
     source TEXT,
     title TEXT,
-    url TEXT,
-    PRIMARY KEY (news_id, username)
+    url TEXT
 );
 
 CREATE TABLE favorites (
@@ -38,6 +37,5 @@ CREATE TABLE favorites (
     snippet TEXT,
     source TEXT,
     title TEXT,
-    url TEXT,
-    PRIMARY KEY (news_id, username)
+    url TEXT
 );
