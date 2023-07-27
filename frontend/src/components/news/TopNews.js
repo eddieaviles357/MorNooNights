@@ -69,12 +69,13 @@ export default function TopNews() {
         {topNews.data.length
             ? (
                 <div className="d-flex flex-row justify-content-center align-items-center flex-wrap my-5">
-                  {topNews.data.map( newsObj => (
-                    <NewsCard 
-                      key={newsObj.uuid}
-                      newsObj={newsObj}
-                      updateRecentlyVisited={updateRecentlyVisited} />
-                      )
+                  {topNews.data.map( 
+                    newsObj => (
+                      <NewsCard 
+                        key={newsObj.uuid}
+                        newsObj={newsObj}
+                        updateRecentlyVisited={updateRecentlyVisited} />
+                        )
                     )
                   }
                 </div>
