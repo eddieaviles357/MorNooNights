@@ -53,6 +53,7 @@ function App() {
     }
     setCurrentUser(null);
     setToken(null);
+    setVisitedNews(null);
     // update recent news
   }
 
