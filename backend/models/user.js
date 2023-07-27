@@ -126,29 +126,31 @@ class User {
      * 
      * returns undefined
      */
-    static async setRecents({ 
-        username, 
-        uuid, 
-        visitedAt,
-        description,
-        imageURL,
-        keywords,
-        language,
-        locale,
-        publishedAt,
-        snippet,
-        source,
-        title,
-        url }) {
-        // delete old recents
-        await db.query(`
-        DELETE FROM recents
-        WHERE username = $1
-        `, [ username ]);
-
-        const results = await db.query(`
-        INSERT INTO recents
-            (
+    static async setRecents(username, data) {     
+        if(data && data.length > 0) {
+            // delete old recents
+            await db.query(`
+            DELETE FROM recents
+            WHERE username = $1
+            `, [ username ]);
+            
+            // loop through data and append to db schema
+            data.forEach( async ({
+                uuid, 
+                visitedAt,
+                description,
+                image_url,
+                keywords,
+                language,
+                locale,
+                published_at,
+                snippet,
+                source,
+                title,
+                url 
+            }) => {
+            const results = await db.query(`
+            INSERT INTO recents (
                 news_id, 
                 username, 
                 visited_at,
@@ -161,28 +163,25 @@ class User {
                 snippet,
                 source,
                 title,
-                url, 
-                )
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
-        `, [ 
-            uuid, 
-            username, 
-            visitedAt,
-            description,
-            imageURL,
-            keywords,
-            language,
-            locale,
-            publishedAt,
-            snippet,
-            source,
-            title,
-            url 
-            ]);
-
-        console.log(results)
-        
-        return results;
+                url )
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
+            `, [ 
+                uuid, 
+                username, 
+                visitedAt,
+                description,
+                image_url,
+                keywords,
+                language,
+                locale,
+                published_at,
+                snippet,
+                source,
+                title,
+                url 
+                ]);
+            })
+        };
     }
 
     /** Get user info.
