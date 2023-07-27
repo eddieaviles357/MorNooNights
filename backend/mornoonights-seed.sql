@@ -100,21 +100,6 @@ VALUES
   'https://www.cnbc.com/2023/07/19/henley-passport-index-2023-singapore-germany-italy-spain-rank-top-.html'
   ),
 (
-  '11bedb45-6690-4482-8e53-0fc85610634a', 
-  'joeman', 
-  '2022-02-22 19:58:45.540158',
-  'Singapore has overtaken Japan to boast the most powerful passport in the world, the Henley Passport Index showed.', 
-  'https://image.cnbcfm.com/api/v1/image/107273388-1689733279342-gettyimages-821304076-singaporesunset2.jpeg?v=1689733412&w=1920&h=1080', 
-  'U.S. Economy, Asia Economy, South Korea, Singapore, Japan, business news', 
-  'en', 
-  'us', 
-  '2023-07-19T02:24:26.000000Z', 
-  'Singapore has overtaken Japan to boast of the worlds most powerful passport, the Henley Passport Index showed.\n\nWhat it means is that the Singapore passport al...', 
-  'cnbc.com', 
-  'Singapores passport is now the most powerful in the world. Heres how other countries ranked', 
-  'https://www.cnbc.com/2023/07/19/henley-passport-index-2023-singapore-germany-italy-spain-rank-top-.html'
-  ),
-(
   '8cca4d04-d649-4ba3-bdc6-05bc74f8ac98', 
   'edhit', 
   '2022-01-21 13:58:45.540158',
