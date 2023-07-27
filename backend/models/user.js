@@ -114,7 +114,20 @@ class User {
      * 
      * returns undefined
      */
-    static async setRecents({ username, uuid, visitedAt }) {
+    static async setRecents({ 
+        username, 
+        uuid, 
+        visitedAt,
+        description,
+        imageURL,
+        keywords,
+        language,
+        locale,
+        publishedAt,
+        snippet,
+        source,
+        title,
+        url }) {
         // delete old recents
         await db.query(`
         DELETE FROM recents
@@ -132,14 +145,28 @@ class User {
                 keywords,
                 language,
                 locale,
-                published_at,
+                published_A,
                 snippet,
                 source,
                 title,
                 url, 
                 )
-        VALUES ($1, $2, $3)
-        `, [ uuid, username, visitedAt ])
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
+        `, [ 
+            uuid, 
+            username, 
+            visitedAt,
+            description,
+            imageURL,
+            keywords,
+            language,
+            locale,
+            publishedAt,
+            snippet,
+            source,
+            title,
+            url 
+            ]);
 
         console.log(results)
         
