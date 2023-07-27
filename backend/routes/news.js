@@ -209,7 +209,7 @@ router.get("/:username/recents", ensureCorrectUserOrAdmin, async (req, res, next
         // get recently visited news -> [{ uuid, visitedAt}]
         let recents = await User.getRecents(username);
 
-        console.log('\nGET::NEWS/{username}/RECENTS::');
+        console.log('\nGET::NEWS/{username}/RECENTS::', recents);
         return res.json({ recents });
     } catch (err) {
         return next(err);
@@ -226,12 +226,9 @@ router.post("/:username/recents", ensureCorrectUserOrAdmin, async (req, res, nex
     try {
         const { username } = req.params; 
         let { recents } = req.body;
-        console.log('\n\nreq.body:::::', recents)
-        recents.reduce( (prev, next) => {
-
-        }, )
         
         console.log('\nPOST::NEWS/{username}/RECENTS::');
+        await User.setRecents(username, recents);
         return res.json({ success: true });
     } catch (err) {
         return next(err);
