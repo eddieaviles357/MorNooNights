@@ -157,7 +157,7 @@ class User {
                 keywords,
                 language,
                 locale,
-                published_A,
+                published_at,
                 snippet,
                 source,
                 title,
