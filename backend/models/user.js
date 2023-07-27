@@ -73,7 +73,7 @@ class User {
         const hashedPassword = await bcrypt.hash(password, BCRYPT_WORK_FACTOR);
         const userResult = await db.query(`
             INSERT INTO users 
-            (username, first_name, last_name, password, email, is_admin)
+                (username, first_name, last_name, password, email, is_admin)
             VALUES ($1, $2, $3, $4, $5, $6)
             RETURNING 
                 username, 
@@ -90,7 +90,7 @@ class User {
         return user;
     };
 
-    /** Get recently views news.
+    /** Get recently visited news.
      * 
      * returns max amount of 5 news
      */
@@ -108,6 +108,42 @@ class User {
         const recents = results.rows;
         
         return recents;
+    }
+
+    /** Set recently visited news.
+     * 
+     * returns undefined
+     */
+    static async setRecents({ username, uuid, visitedAt }) {
+        // delete old recents
+        await db.query(`
+        DELETE FROM recents
+        WHERE username = $1
+        `, [ username ]);
+
+        const results = await db.query(`
+        INSERT INTO recents
+            (
+                news_id, 
+                username, 
+                visited_at,
+                description,
+                image_url,
+                keywords,
+                language,
+                locale,
+                published_at,
+                snippet,
+                source,
+                title,
+                url, 
+                )
+        VALUES ($1, $2, $3)
+        `, [ uuid, username, visitedAt ])
+
+        console.log(results)
+        
+        return results;
     }
 
     /** Get user info.
