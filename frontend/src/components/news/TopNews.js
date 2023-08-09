@@ -46,7 +46,7 @@ export default function TopNews() {
   useEffect(() => {
     async function recents(username) {
       try {
-        const {recents} = await MorNooNightsNewsAPI.getRecents( currentUser.username ) || [];
+        const {recents} = await MorNooNightsNewsAPI.getRecents( username ) || [];
         setVisitedNews( JSON.stringify(recents) );
       } catch (err) {
         setErrors(Array.from(err || err.message))
@@ -66,6 +66,7 @@ export default function TopNews() {
 
   return (
       <div className="d-flex flex-column align-items-center">
+      <h2>Top News</h2>
         {topNews.data.length
             ? (
                 <div className="d-flex flex-row justify-content-center align-items-center flex-wrap my-5">
