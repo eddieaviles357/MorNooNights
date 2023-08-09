@@ -13,6 +13,7 @@ export default function Navigation({ logout }) {
         <ul>
           <li>
             <NavLink to="/news">News</NavLink>
+            <NavLink to="/recents">Recents</NavLink>
             <NavLink to="/" onClick={logout}>
               Log out {currentUser.first_name || currentUser.username}
             </NavLink>
