@@ -45,3 +45,8 @@ code {
   background-color: var(--tertiary);
   color: var(--button-text);
 }
+
+.Btn-secondary {
+  background-color: var(--secondary);
+  color: var(--button-text);
+}
