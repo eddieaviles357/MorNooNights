@@ -5,6 +5,7 @@ import Home from "../homepage/Home";
 import LoginForm from "../auth/LoginForm";
 import SignupForm from "../auth/SignupForm";
 import TopNews from "../news/TopNews";
+import Recents from "../news/Recents";
 
 export default function AppRoutes({ login, signup}) {
 
@@ -16,6 +17,7 @@ export default function AppRoutes({ login, signup}) {
         {/* Private route -- access to current users or admin */}
         <Route element={<PrivateRoute />}>
           <Route path="/news" element={<TopNews />} />
+          <Route path="/recents" element={<Recents />} />
         </Route>
 
     </Routes>
