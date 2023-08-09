@@ -19,7 +19,7 @@ function NewsCard({
       <div className="Body card-body">
         <h5 className="card-title">{newsObj.title}</h5>
         <p className="card-text">{newsObj.snippet}</p>
-        <p className="card-text fst-italic">Published: { new Date(newsObj.publishedAt).toUTCString() }</p>
+        <p className="card-text fst-italic">Published: { new Date(newsObj.published_at).toDateString() }</p>
         <Link 
           onClick={() => updateRecentlyVisited(newsObj)} 
           className="Btn-tertiary btn" 
