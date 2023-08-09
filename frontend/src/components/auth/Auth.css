@@ -7,4 +7,23 @@
   /* display: flex; */
   /* align-items: center; */
   /* justify-content: center; */
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.LoginForm {
+  background-image: url("../../../public/Lock.jpg");
+}
+
+.SignupForm {
+  background-image: url("../../../public/checklist.png");
+}
+
+.LoginForm h2,
+.SignupForm h2 {
+  color: white;
+  background-color: rgba(0,0,0,0.5);
+
+  margin-bottom: 0;
+  padding: 10px;
 }
