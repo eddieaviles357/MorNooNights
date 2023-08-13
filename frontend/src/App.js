@@ -87,6 +87,7 @@ function App() {
     }
   };
 
+  // handles visited news update to db
   const updateRecentlyVisited = (news) => {
     // if no data is available set to empty array
     const visited = JSON.parse(visitedNews) || [];
