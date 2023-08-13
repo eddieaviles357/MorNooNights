@@ -29,9 +29,9 @@ export default function TopNews() {
       /** Triggered by search form submit; reloads news. */
     async function search(name) {
       try {
-        const news = await MorNooNightsNewsAPI.getTopNews(name);
+        // const news = await MorNooNightsNewsAPI.getTopNews(name);
         // used for testing so we won't exhaust our api calls
-        // const news = fakeData;
+        const news = fakeData;
 
         setTopNews(news.data);
       } catch (err) {
@@ -53,7 +53,7 @@ export default function TopNews() {
       };
     };
     recents(currentUser.username);
-  }, []);
+  }, [currentUser.username, setVisitedNews]);
 
   // if there are any errors display them to user
   if (errors) {
