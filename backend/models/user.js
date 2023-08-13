@@ -99,20 +99,20 @@ class User {
         let results = await db.query(`
             SELECT 
                 news_id AS "uuid", 
-                visited_at AS "visitedAt",
+                visited_at,
                 description,
-                image_url AS "imageURL",
+                image_url,
                 keywords,
                 language,
                 locale,
-                published_at AS "publishedAt",
+                published_at,
                 snippet,
                 source,
                 title,
                 url
             FROM recents
             WHERE username = $1
-            ORDER BY "visitedAt" DESC
+            ORDER BY visited_at DESC
             LIMIT 5`, [username]);
         
         if(results.rows.length === 0) return [];
@@ -137,7 +137,7 @@ class User {
             // loop through data and append to db schema
             data.forEach( async ({
                 uuid, 
-                visitedAt,
+                visited_at,
                 description,
                 image_url,
                 keywords,
@@ -168,7 +168,7 @@ class User {
             `, [ 
                 uuid, 
                 username, 
-                visitedAt,
+                visited_at,
                 description,
                 image_url,
                 keywords,
