@@ -10,7 +10,7 @@ function NewsCard({
     newsObj,
     updateRecentlyVisited
     }) {
-  console.log("NewsCard Rendered", newsObj);
+  // console.log("NewsCard Rendered", newsObj);
   return (
     <div className="NewsCard">
       <figure className="img-container">
