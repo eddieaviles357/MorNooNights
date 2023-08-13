@@ -1,13 +1,23 @@
-import React,{ useContext, useState } from "react";
+import React,{ useContext, useState, useEffect } from "react";
 import UserContext from "../auth/UserContext";
 import NewsCard from "./NewsCard";
+import MorNooNightsNewsAPI from "../../api/api";
 
 function Recents() {
   console.debug("RECENT::NEWS");
   const { 
+    currentUser,
     visitedNews,
     updateRecentlyVisited
   } = useContext(UserContext);
+
+  useEffect(() => {
+    async function quickUpdate(user) {
+      const data = { recents: JSON.parse(visitedNews) };
+      await MorNooNightsNewsAPI.updateRecents(user, data);
+    }
+    quickUpdate(currentUser.username);
+  }, [currentUser.username, visitedNews]);
 
   const [news, setNews] = useState(JSON.parse(visitedNews));
 
