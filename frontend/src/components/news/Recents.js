@@ -11,7 +11,7 @@ function Recents() {
 
   const [news, setNews] = useState(JSON.parse(visitedNews));
 
-  console.log('news',news);
+  // console.log('news',news);
   return (
     <div className="d-flex flex-column align-items-center">
       <h2>Recents</h2>
@@ -28,14 +28,14 @@ function Recents() {
                       url, 
                       language, 
                       locale, 
-                      imageURL, 
+                      image_url, 
                       source, 
-                      publishedAt,
-                      visitedAt }) => {
-                      const nObj = { uuid, title, description, keywords, snippet, url, language, locale, image_url: imageURL, source, published_at: publishedAt, visitedAt };
+                      published_at,
+                      visited_at }) => {
+                      const nObj = { uuid, title, description, keywords, snippet, url, language, locale, image_url, source, published_at, visited_at };
                       return (
                       <NewsCard 
-                        key={visitedAt}
+                        key={visited_at}
                         newsObj={nObj}
                         updateRecentlyVisited={updateRecentlyVisited} />
                         )}
