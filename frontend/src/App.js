@@ -17,7 +17,7 @@ function App() {
   const [token, setToken] = useLocalStorage(TOKEN_STORAGE_ID);
   const [visitedNews, setVisitedNews] = useLocalStorage("recents");
 
-  console.debug("currentUser", currentUser, "token", token);
+  // console.debug("currentUser", currentUser, "token", token);
 
   useEffect(function loadUserInfo() {
     console.debug("App useEffect loadUserInfo", "token=", token);
@@ -93,7 +93,7 @@ function App() {
     // allows only 5 entries
     if(visited.length >= 5) visited.shift(); // remove 1st entry
     visited.push(updatedNews)
-    console.log("__HANDLE_CLICK__", visited)
+    console.log("__HANDLE_CLICK__", JSON.stringify(visited))
     // stringify visited news and update values
     setVisitedNews( _ => JSON.stringify(visited) )
   }
