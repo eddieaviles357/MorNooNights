@@ -13,7 +13,7 @@ import UserContext from "../auth/UserContext";
  */
 
 export default function TopNews() {
-  console.debug("TopNews");
+  // console.debug("TopNews");
 
   const [topNews, setTopNews] = useState(null);
   const [errors, setErrors] = useState(null);
@@ -38,7 +38,7 @@ export default function TopNews() {
         setErrors(err)
       }
     };
-    console.debug("TopNews useEffect");
+    // console.debug("TopNews useEffect");
     search();
   }, []);
 

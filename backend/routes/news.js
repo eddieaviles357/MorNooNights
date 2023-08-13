@@ -227,7 +227,7 @@ router.post("/:username/recents", ensureCorrectUserOrAdmin, async (req, res, nex
         const { username } = req.params; 
         let { recents } = req.body;
         
-        console.log('\nPOST::NEWS/{username}/RECENTS::');
+        // console.log('\nPOST::NEWS/{username}/RECENTS::');
         await User.setRecents(username, recents);
         return res.json({ success: true });
     } catch (err) {

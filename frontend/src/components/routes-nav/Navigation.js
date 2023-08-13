@@ -6,7 +6,7 @@ import UserContext from "../auth/UserContext";
 export default function Navigation({ logout }) {
   
   const {currentUser} = useContext(UserContext);
-  console.log("NAVIGATION CURR_USER::", currentUser);
+  // console.log("NAVIGATION CURR_USER::", currentUser);
   // displays when user is logged in
   function loggedInNav() {
     return (
