@@ -10,7 +10,7 @@ function NewsCard({
     newsObj,
     updateRecentlyVisited
     }) {
-  console.log("NewsCard Rendered");
+  console.log("NewsCard Rendered", newsObj);
   return (
     <div className="NewsCard">
       <figure className="img-container">
@@ -19,7 +19,11 @@ function NewsCard({
       <div className="Body card-body">
         <h5 className="card-title">{newsObj.title}</h5>
         <p className="card-text">{newsObj.snippet}</p>
-        <p className="card-text fst-italic">Published: { new Date(newsObj.published_at).toDateString() }</p>
+        {!newsObj.visited_at ? 
+        (<p className="card-text fst-italic">Published: { new Date(newsObj.published_at).toDateString() }</p>)
+        :
+        (<p className="card-text fst-italic">Visited at: { new Date(newsObj.visited_at).toDateString() }</p>)}
+        
         <Link 
           onClick={() => updateRecentlyVisited(newsObj)} 
           className="Btn-tertiary btn" 
