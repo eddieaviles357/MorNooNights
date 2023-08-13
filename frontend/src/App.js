@@ -47,6 +47,7 @@ function App() {
     try {
       const { username } = currentUser;
       const data = { recents: JSON.parse(visitedNews) };
+      console.log("__LOGGIING_OUT__::", data)
       await MorNooNightsNewsAPI.updateRecents(username, data);
     } catch (errors) {
       alert("failed to update recents", errors);
@@ -89,11 +90,11 @@ function App() {
   const updateRecentlyVisited = (news) => {
     // if no data is available set to empty array
     const visited = JSON.parse(visitedNews) || [];
-    const updatedNews = {...news, visitedAt: new Date().toGMTString() }
+    const updatedNews = {...news, visited_at: new Date().toGMTString() }
     // allows only 5 entries
     if(visited.length >= 5) visited.shift(); // remove 1st entry
     visited.push(updatedNews)
-    console.log("__HANDLE_CLICK__", JSON.stringify(visited))
+    // console.log("__HANDLE_CLICK__", updatedNews)
     // stringify visited news and update values
     setVisitedNews( _ => JSON.stringify(visited) )
   }
