@@ -15,6 +15,7 @@ function App() {
   const [infoLoaded, setInfoLoaded] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
   const [token, setToken] = useLocalStorage(TOKEN_STORAGE_ID);
+  const [news, setNews] = useState(null);
   const [visitedNews, setVisitedNews] = useLocalStorage("recents");
 
   // console.debug("currentUser", currentUser, "token", token);
@@ -91,7 +92,7 @@ function App() {
   const updateRecentlyVisited = (news) => {
     // if no data is available set to empty array
     const visited = JSON.parse(visitedNews) || [];
-    const updatedNews = {...news, visited_at: new Date().toGMTString() }
+    const updatedNews = {...news, visited_at: new Date() }
     // allows only 5 entries
     if(visited.length >= 5) visited.shift(); // remove 1st entry
     visited.push(updatedNews)
@@ -110,7 +111,9 @@ function App() {
         setCurrentUser, 
         visitedNews, 
         setVisitedNews,
-        updateRecentlyVisited
+        updateRecentlyVisited,
+        news,
+        setNews
         }}>
         <Navigation logout={logout}/>
         <AppRoutes login={login} signup={signup}/>
