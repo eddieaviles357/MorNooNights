@@ -34,9 +34,10 @@ class MorNooNightsNewsAPI {
     return res.user;
   };
 
-  static async getTopNews() {
-    let res = await this.request(`news/top`);
-    // console.log('FRONTEND::TOP::NEWS', res);
+  static async getTopNews(name = '', page = 1) {
+    let res = await this.request(`news/top/${page}`);
+    console.log('FRONTEND::TOP::NEWS', res);
+    console.log('FRONTEND::TOP::NEWS::ARGUMENTS', name, page)
     return res;
   };
 
