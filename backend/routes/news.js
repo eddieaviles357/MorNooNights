@@ -27,9 +27,10 @@ const User = require("../models/User");
 *
 * Throws NotFoundError on no news.
 **/
-router.get("/top", async (req, res, next) => {
+router.get("/top/:page", async (req, res, next) => {
     try {
-        const endPoint = `top?${API_TOKEN}&${LOCALE_US}&${LANG_EN}&${LIMIT}`;
+        let page = req.params.page || 1;
+        const endPoint = `top?${API_TOKEN}&${LOCALE_US}&${LANG_EN}&${LIMIT}&page=${page}`;
         const { data } = await axios.get(`${BASE_URL}/${endPoint}`);
         if(!data) throw new NotFoundError("No News found");
         console.log('GET::news/top::', data);
