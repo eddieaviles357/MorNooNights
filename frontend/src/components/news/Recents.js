@@ -15,6 +15,7 @@ function Recents() {
     async function quickUpdate(user) {
       const data = { recents: JSON.parse(visitedNews) };
       await MorNooNightsNewsAPI.updateRecents(user, data);
+      console.log("%cRECENTS::COMPONENT::useEFFECT", "color: salmon;", data)
     }
     quickUpdate(currentUser.username);
   }, [currentUser.username, visitedNews]);
@@ -41,11 +42,11 @@ function Recents() {
                       image_url, 
                       source, 
                       published_at,
-                      visited_at }) => {
+                      visited_at }, idx) => {
                       const nObj = { uuid, title, description, keywords, snippet, url, language, locale, image_url, source, published_at, visited_at };
                       return (
                       <NewsCard 
-                        key={visited_at}
+                        key={`${visited_at}${idx}`}
                         newsObj={nObj}
                         updateRecentlyVisited={updateRecentlyVisited} />
                         )}
