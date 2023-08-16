@@ -6,6 +6,7 @@ import LoginForm from "../auth/LoginForm";
 import SignupForm from "../auth/SignupForm";
 import TopNews from "../news/TopNews";
 import Recents from "../news/Recents";
+import SearchNews from "../news/SearchNews";
 
 export default function AppRoutes({ login, signup}) {
 
@@ -18,6 +19,7 @@ export default function AppRoutes({ login, signup}) {
         <Route element={<PrivateRoute />}>
           <Route path="/news" element={<TopNews />} />
           <Route path="/recents" element={<Recents />} />
+          <Route path="/search" element={<SearchNews />} />
         </Route>
 
     </Routes>

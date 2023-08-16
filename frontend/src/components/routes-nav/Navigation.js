@@ -14,6 +14,7 @@ export default function Navigation({ logout }) {
           <li>
             <NavLink to="/news">News</NavLink>
             <NavLink to="/recents">Recents</NavLink>
+            <NavLink to="/search">Search</NavLink>
             <NavLink to="/" onClick={logout}>
               Log out {currentUser.first_name || currentUser.username}
             </NavLink>
