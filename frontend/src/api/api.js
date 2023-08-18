@@ -37,7 +37,6 @@ class MorNooNightsNewsAPI {
   static async getTopNews(name = '', page = 1) {
     let res = await this.request(`news/top/${page}`);
     console.log('FRONTEND::TOP::NEWS', res);
-    console.log('FRONTEND::TOP::NEWS::ARGUMENTS', name, page)
     return res;
   };
 
@@ -51,6 +50,12 @@ class MorNooNightsNewsAPI {
     console.log("API::UPDATE::RECENTS", data)
     const res = await this.request(`news/${username}/recents`, data , "post");
     console.log("UPDATING::RECENTS::SUCCESS", res);
+  }
+
+  static async searchNews(val) {
+    const res = await this.request(`news/search/${val}`);
+    console.log("API::RES::", res);
+    return res;
   }
 
   // Get token for login.
