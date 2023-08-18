@@ -44,7 +44,7 @@ function SearchForm({ searchFor }) {
           </div>
           <div className="col-auto">
             <button type="submit" className="Btn-tertiary btn btn-lg">
-              Submit
+              Search
             </button>
           </div>
         </div>
