@@ -33,7 +33,7 @@ router.get("/top/:page", async (req, res, next) => {
         const endPoint = `top?${API_TOKEN}&${LOCALE_US}&${LANG_EN}&${LIMIT}&page=${page}`;
         const { data } = await axios.get(`${BASE_URL}/${endPoint}`);
         if(!data) throw new NotFoundError("No News found");
-        console.log('GET::news/top::', data);
+        // console.log('GET::news/top::', data);
         return res.json({ data })
     } catch (err) {
         return next(err);
@@ -122,6 +122,7 @@ router.get("/category/:categories", async (req, res, next) => {
 router.get("/search/:value", async function(req, res, next) {
     try {
         const { value } = req.params;
+        console.log("BACKEND::VALUE\n", value)
         const endPoint = `all?${API_TOKEN}&${LOCALE_US}&${LANG_EN}&search=${value}&${LIMIT}`
         const { data } = await axios.get(`${BASE_URL}/${endPoint}`);
         console.log('GET::/search/VALUE::', data, '\nvalue',value)
@@ -180,7 +181,7 @@ router.get("uuid/:id", async (req, res, next) => {
         const { id } = req.params;
         const endPoint = `uuid/${id}?${API_TOKEN}`;
         const { data } = await axios.get(`${BASE_URL}/${endPoint}`)
-        console.log('GET::news/UUID/id::', data);
+        // console.log('GET::news/UUID/id::', data);
         return res.json({ data })
     } catch (err) {
         next(err);
@@ -210,7 +211,7 @@ router.get("/:username/recents", ensureCorrectUserOrAdmin, async (req, res, next
         // get recently visited news -> [{ uuid, visitedAt}]
         let recents = await User.getRecents(username);
 
-        console.log('\nGET::NEWS/{username}/RECENTS::', recents);
+        // console.log('\nGET::NEWS/{username}/RECENTS::', recents);
         return res.json({ recents });
     } catch (err) {
         return next(err);
