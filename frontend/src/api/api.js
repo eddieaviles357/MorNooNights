@@ -52,8 +52,8 @@ class MorNooNightsNewsAPI {
     console.log("UPDATING::RECENTS::SUCCESS", res);
   }
 
-  static async searchNews(val) {
-    const res = await this.request(`news/search/${val}`);
+  static async searchNews(val, page = 1) {
+    const res = await this.request(`news/search/${val}/${page}`);
     console.log("API::RES::", res);
     return res;
   }
