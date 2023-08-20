@@ -119,11 +119,11 @@ router.get("/category/:categories", async (req, res, next) => {
 *	data: { meta: { found, returned, limit, page }, data: [] }
 * }
 **/
-router.get("/search/:value", async function(req, res, next) {
+router.get("/search/:value/:page", async function(req, res, next) {
     try {
-        const { value } = req.params;
-        console.log("BACKEND::VALUE\n", value)
-        const endPoint = `all?${API_TOKEN}&${LOCALE_US}&${LANG_EN}&search=${value}&${LIMIT}`
+        const { value, page } = req.params;
+        console.log("BACKEND::VALUE\n", req.params)
+        const endPoint = `all?${API_TOKEN}&${LOCALE_US}&${LANG_EN}&search=${value}&${LIMIT}&page=${page}`;
         const { data } = await axios.get(`${BASE_URL}/${endPoint}`);
         console.log('GET::/search/VALUE::', data, '\nvalue',value)
         return res.json({ data });
