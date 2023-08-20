@@ -11,13 +11,15 @@ import "./SearchForm.css";
  *
  */
 
-function SearchForm({ searchFor }) {
+function SearchForm({ searchFor, reset }) {
   console.debug("SearchForm", "searchFor=", typeof searchFor);
 
   const [searchTerm, setSearchTerm] = useState("");
 
+  
   /** Tell parent to filter */
-  function handleSubmit(evt) {
+  async function handleSubmit(evt) {
+    reset();
     // take care of accidentally trying to search for just spaces
     evt.preventDefault();
     searchFor(searchTerm.trim() || undefined);
@@ -40,6 +42,7 @@ function SearchForm({ searchFor }) {
                 placeholder="Enter search term.."
                 value={searchTerm}
                 onChange={handleChange}
+                autoFocus={true}
             />
           </div>
           <div className="col-auto">
