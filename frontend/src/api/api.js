@@ -49,12 +49,17 @@ class MorNooNightsNewsAPI {
   static async updateRecents(username, data) {
     console.log("API::UPDATE::RECENTS", data)
     const res = await this.request(`news/${username}/recents`, data , "post");
-    console.log("UPDATING::RECENTS::SUCCESS", res);
   }
 
   static async searchNews(val, page = 1) {
     const res = await this.request(`news/search/${val}/${page}`);
     console.log("API::RES::", res);
+    return res;
+  }
+
+  static async getNewsByCategory(category, page = 1) {
+    const res = await this.request(`news/category/${category}/${page}`);
+    console.log("API::CATEGORIES::NEWS", res);
     return res;
   }
 
