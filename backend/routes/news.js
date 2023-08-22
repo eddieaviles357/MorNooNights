@@ -40,29 +40,6 @@ router.get("/top/:page", async (req, res, next) => {
     }
 });
 
-/** Gets Sources.
-*  must provide page number -> /sources/1
-*
-* Returns possible results
-* {
-*	data: {
-*       meta: { found, returned, limit, page },
-*		data: [ { source_id,domain,language,locale, categories: [] } ]
-*   }
-*/
-router.get("/sources/:page", async (req, res, next) => {
-    try {
-        const PAGE = `page=${req.params.page}`;
-        const endPoint = `sources?${API_TOKEN}&${LOCALE_US}&${LANG_EN}&${PAGE}`;
-        const { data } = await axios.get(`${BASE_URL}/${endPoint}`)
-        if(!data) throw new NotFoundError("No News found");
-        console.log('GET::news/sources::', data);
-        return res.json({ data })
-    } catch (err) {
-        return next(err);
-    }
-});
-
 /** Gets news by categories.
 *  categories can be
 *  -> tech, travel, business, entertainment, general, food, politics, sports, science
@@ -129,37 +106,6 @@ router.get("/search/:value/:page", async function(req, res, next) {
         return res.json({ data });
     } catch (err) {
         return next(err);
-    }
-});
-
-
-
-
-/** Gets news by similar story.
-* 
-* Returns news obj
-* {
-*	data: {
-*       meta: { found, returned, limit, page },
-*		data: [ 
-*            { uuid, title, description, keywords,
-*				snippet, url, image_url, language,
-*				published_at, source, categories: [], relevance_score } 
-*        ]
-*	 }
-* }
-*  
-* Throws NotFoundError on no news.
-**/
-router.get("/similar/:uuid", async (req, res, next) => {
-    try {
-        const { uuid } = req.params;
-        const endPoint = `similar/${uuid}?${API_TOKEN}&${LOCALE_US}&${LANG_EN}&${LIMIT}`;
-        const { data } = await axios.get(`${BASE_URL}/${endPoint}`)
-        console.log('GET::news/similar/UUID::', data);
-        return res.json({ data })
-    } catch (err) {
-        next(err);
     }
 });
 
@@ -237,7 +183,11 @@ router.post("/:username/recents", ensureCorrectUserOrAdmin, async (req, res, nex
     }
 });
 
-/** Gets news Headlines. ( ONLY FOR PAID ACCOUTNS)
+module.exports = router;
+
+// ( ONLY FOR PAID ACCOUTNS )
+
+/** Gets news Headlines.
 * 
 * Returns latest headlines
 *  
@@ -255,4 +205,53 @@ router.post("/:username/recents", ensureCorrectUserOrAdmin, async (req, res, nex
 //     }
 // });
 
-module.exports = router;
+/** Gets Sources.
+*  must provide page number -> /sources/1
+*
+* Returns possible results
+* {
+*	data: {
+*       meta: { found, returned, limit, page },
+*		data: [ { source_id,domain,language,locale, categories: [] } ]
+*   }
+*/
+// router.get("/sources/:page", async (req, res, next) => {
+//     try {
+//         const PAGE = `page=${req.params.page}`;
+//         const endPoint = `sources?${API_TOKEN}&${LOCALE_US}&${LANG_EN}&${PAGE}`;
+//         const { data } = await axios.get(`${BASE_URL}/${endPoint}`)
+//         if(!data) throw new NotFoundError("No News found");
+//         console.log('GET::news/sources::', data);
+//         return res.json({ data })
+//     } catch (err) {
+//         return next(err);
+//     }
+// });
+
+/** Gets news by similar story.
+* 
+* Returns news obj
+* {
+*	data: {
+*       meta: { found, returned, limit, page },
+*		data: [ 
+*            { uuid, title, description, keywords,
+*				snippet, url, image_url, language,
+*				published_at, source, categories: [], relevance_score } 
+*        ]
+*	 }
+* }
+*  
+* Throws NotFoundError on no news.
+**/
+// router.get("/similar/:uuid", async (req, res, next) => {
+//     try {
+//         const { uuid } = req.params;
+//         const endPoint = `similar/${uuid}?${API_TOKEN}&${LOCALE_US}&${LANG_EN}&${LIMIT}`;
+//         const { data } = await axios.get(`${BASE_URL}/${endPoint}`)
+//         console.log('GET::news/similar/UUID::', data);
+//         return res.json({ data })
+//     } catch (err) {
+//         next(err);
+//     }
+// });
