@@ -3,6 +3,7 @@ import UserContext from "../auth/UserContext";
 import NewsCard from "./NewsCard";
 import MorNooNightsNewsAPI from "../../api/api";
 import SearchForm from "../common/SearchForm";
+import Categories from "../common/Categories";
 
 function SearchNews() {
   console.debug("SEARCH::NEWS");
@@ -10,13 +11,13 @@ function SearchNews() {
     updateRecentlyVisited
   } = useContext(UserContext);
 
-  const [searchedNews, setSearchNews] = useState([]);
+  const [news, setNews] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [currPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');
 
   async function reset() {
-    setSearchNews(() => []);
+    setNews(() => []);
     setCurrentPage(() => 1);
     setSearchTerm(() => '');
   };
@@ -25,26 +26,38 @@ function SearchNews() {
     try {
       setIsLoading(true);
       const {data} = await MorNooNightsNewsAPI.searchNews(term, page);
-      console.log("%cSEARCHED::DATA", "color: blue;font-size: 18px;", data)
-      setSearchNews( prev => [ ...prev, ...data.data ]);
+      setNews( prev => [ ...prev, ...data.data ]);
       setSearchTerm( term );
       setIsLoading(false);
-      console.log("%cFRONTEND::SEARCHED::NEWS", "color: green;", searchedNews);
     } catch (err) {
       alert(err);
-    };
+    }
     setCurrentPage( currPage+1 );
   };
-  console.log("PAGE::SEARCH::", currPage)
-    
+
+  async function getCategoryNews(category, page = 1) {
+    try {
+      setIsLoading(true);
+      const {data} = await MorNooNightsNewsAPI.getNewsByCategory(category, page);
+      console.log("%cCategory", "color: yellow; font-size: 20px;", category);
+      setNews( prev => [ ...prev, ...data.data ]);
+      setSearchTerm( category );
+      setIsLoading(false);
+    } catch (err) {
+      alert(err);
+    }
+  };
+
+  
   return (
     <div className="d-flex flex-column align-items-center">
+      <Categories clickHandler={getCategoryNews} />
       <h2>Search News</h2>
       <SearchForm searchFor={search} reset={reset}/>
-      {searchedNews.length
+      {news.length
             ? (
                 <div className="d-flex flex-row justify-content-center align-items-center flex-wrap my-5">
-                  {searchedNews.map( 
+                  {news.map( 
                     ({ 
                       uuid, 
                       title, 
@@ -82,7 +95,7 @@ function SearchNews() {
                 </div>
             ) : ""}
       {isLoading && <div className="p-4">Loading...</div>}
-      {(searchedNews.length && !isLoading) 
+      {(news.length && !isLoading) 
         ? <button onClick={() => search(searchTerm, currPage)} className="Btn-tertiary btn">More</button>
         : <></>}
     </div>
