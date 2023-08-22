@@ -20,7 +20,7 @@ class MorNooNightsNewsAPI {
     try {
       return (await axios({ url, method, data, params, headers })).data;
     } catch (err) {
-      console.error("API ERROR::", err.response);
+      console.error("AP::ERROR::", err.response);
       let message = err.response.data.error.message;
       // throw array of errors
       throw Array.isArray(message) ? message : [message];
@@ -36,30 +36,30 @@ class MorNooNightsNewsAPI {
 
   static async getTopNews(name = '', page = 1) {
     let res = await this.request(`news/top/${page}`);
-    console.log('FRONTEND::TOP::NEWS', res);
+    console.log('%cAPI::FRONTEND::GET_TOP_NEWS', "color: yellow; font-size: 20px;", res);
     return res;
   };
 
   static async getRecents(username) {
     const res = await this.request(`news/${username}/recents`);
-    console.log('FRONTEND::RECENTS', res);
+    console.log('%cAPI::FRONTEND::GET_RECENTS', "color: yellow; font-size: 20px;", res);
     return res;
   };
 
   static async updateRecents(username, data) {
-    console.log("API::UPDATE::RECENTS", data)
+    console.log("%cAPI::FRONTEND::UPDATE_RECENTS", "color: yellow; font-size: 20px;", data)
     const res = await this.request(`news/${username}/recents`, data , "post");
   }
 
   static async searchNews(val, page = 1) {
     const res = await this.request(`news/search/${val}/${page}`);
-    console.log("API::RES::", res);
+    console.log("%cAPI::FRONTEND::SEARCH_NEWS::", "color: yellow; font-size: 20px;", res);
     return res;
   }
 
   static async getNewsByCategory(category, page = 1) {
     const res = await this.request(`news/category/${category}/${page}`);
-    console.log("API::CATEGORIES::NEWS", res);
+    console.log("%cAPI::FRONTEND::GET_NEWS_BY_CATEGORY", "color: yellow; font-size: 20px;", res);
     return res;
   }
 
