@@ -16,6 +16,7 @@ export default function TopNews() {
   // console.debug("TopNews");
 
   const [errors, setErrors] = useState(null);
+  
   const { 
     currentUser, 
     visitedNews, 
