@@ -86,12 +86,12 @@ router.get("/sources/:page", async (req, res, next) => {
 *   }
 * }
 **/
-router.get("/category/:categories", async (req, res, next) => {
+router.get("/category/:categories/:page", async (req, res, next) => {
     try {
-        const { categories } = req.params;
-        const endPoint = `all?${API_TOKEN}&${LOCALE_US}&${LANG_EN}&${`categories=${categories}&${LIMIT}`}`;
+        const { categories, page } = req.params;
+        const endPoint = `all?${API_TOKEN}&${LOCALE_US}&${LANG_EN}&categories=${categories}&page=${page}`;
         const { data } = await axios.get(`${BASE_URL}/${endPoint}`);
-        console.log('GET::news/CATEGORY/:categories::', data);
+        console.log('GET::news/CATEGORY/:categories::', data, page);
         return res.json({ data })
     } catch (err) {
         return next(err);
