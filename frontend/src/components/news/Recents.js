@@ -11,18 +11,17 @@ function Recents() {
     updateRecentlyVisited
   } = useContext(UserContext);
 
+  // update the db with new recents from users browser.
   useEffect(() => {
-    async function quickUpdate(user) {
+    async function updateUserRecents(user) {
       const data = { recents: JSON.parse(visitedNews) };
       await MorNooNightsNewsAPI.updateRecents(user, data);
-      console.log("%cRECENTS::COMPONENT::useEFFECT", "color: salmon;", data)
     }
-    quickUpdate(currentUser.username);
-  }, [currentUser.username, visitedNews]);
+    updateUserRecents(currentUser.username);
+  }, []);
 
   const [news, setNews] = useState(JSON.parse(visitedNews));
 
-  // console.log('news',news);
   return (
     <div className="d-flex flex-column align-items-center">
       <h2>Recents</h2>
@@ -54,7 +53,7 @@ function Recents() {
                   }
                 </div>
             ) : (
-                <p className="lead">Sorry, no results were found!</p>
+                <p className="lead">Sorry, no results were found. Try Refreshing the Page!</p>
         )}
     </div>
   )
