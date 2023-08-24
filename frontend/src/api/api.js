@@ -41,14 +41,14 @@ class MorNooNightsNewsAPI {
   };
 
   static async getRecents(username) {
-    const res = await this.request(`news/${username}/recents`);
+    const res = await this.request(`users/${username}/recents`);
     console.log('%cAPI::FRONTEND::GET_RECENTS', "color: yellow; font-size: 20px;", res);
     return res;
   };
 
   static async updateRecents(username, data) {
     console.log("%cAPI::FRONTEND::UPDATE_RECENTS", "color: yellow; font-size: 20px;", data)
-    const res = await this.request(`news/${username}/recents`, data , "post");
+    const res = await this.request(`users/${username}/recents`, data , "post");
   }
 
   static async searchNews(val, page = 1) {
