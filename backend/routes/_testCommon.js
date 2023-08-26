@@ -65,26 +65,27 @@ async function commonBeforeAll() {
   uuids[2] = recents[2]["uuid"];
 
   await User.register({
-    username: "u1",
-    firstName: "U1F",
-    lastName: "U1L",
+    username: "user1",
+    firstName: "u1first",
+    lastName: "u1last",
     email: "user1@user.com",
     password: "password1",
     isAdmin: false,
   });
 
   await User.register({
-    username: "u2",
-    firstName: "U2F",
-    lastName: "U2L",
+    username: "user2",
+    firstName: "u2first",
+    lastName: "u2last",
     email: "user2@user.com",
     password: "password2",
     isAdmin: false,
   });
+  
+  await User.setRecents("user1", recents );
+  await User.setRecents("user2", recents );
 }
 
-await User.setRecents("u1", recents );
-await User.setRecents("u2", recents );
 
 async function commonBeforeEach() {
   await db.query("BEGIN");
