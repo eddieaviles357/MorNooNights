@@ -25,7 +25,7 @@ function LoginForm({ login }) {
       setTimeout(() => navigate("/news", { replace: true}), 0);
     } else {
       // something went wrong
-      setFormErrors(result.errors);
+      setFormErrors( prev => [...prev, result.errors]);
     }
   }
 
