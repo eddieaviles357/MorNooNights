@@ -29,7 +29,7 @@ function SignupForm({ signup }) {
     evt.preventDefault();
     let result = await signup(formData);
     if (result.success) {
-      // navigates to news route when successfuly singup is received
+      // navigates to news route when successfuly signup is received
       setTimeout(() => navigate("/news", { replace: -1}), 0);
     } else {
       setFormErrors(result.errors);
