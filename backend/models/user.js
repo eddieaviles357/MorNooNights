@@ -4,7 +4,8 @@ const db = require("../db.js");
 const bcrypt = require("bcrypt");
 const { 
     BadRequestError,
-    UnauthorizedError 
+    UnauthorizedError,
+    NotFoundError
     } = require("../MornoonightsError.js");
 const { BCRYPT_WORK_FACTOR } = require("../config.js");
 
