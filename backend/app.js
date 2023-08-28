@@ -11,6 +11,7 @@ const userRoutes = require("./routes/users");
 const { 
     authenticateJWT, 
     ensureLoggedIn,
+    ensureCorrectUserOrAdmin,
     } = require("./middleware/auth");
 
 app.use(cors());
@@ -20,7 +21,7 @@ app.use(authenticateJWT);
 
 app.use("/news", ensureLoggedIn, newsRoutes);
 app.use("/auth", authRoutes);
-app.use("/users", userRoutes);
+app.use("/users", ensureCorrectUserOrAdmin, userRoutes);
 
 /** Handle 404 errors -- this matches everything */
 app.use(function (req, res, next) {
