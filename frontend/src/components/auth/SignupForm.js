@@ -32,7 +32,7 @@ function SignupForm({ signup }) {
       // navigates to news route when successfuly signup is received
       setTimeout(() => navigate("/news", { replace: -1}), 0);
     } else {
-      setFormErrors(result.errors);
+      setFormErrors(prev => [...prev, result.errors]);
     }
   }
 
