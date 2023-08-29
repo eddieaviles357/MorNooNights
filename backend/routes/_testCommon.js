@@ -6,53 +6,58 @@ const createToken = require("../helpers/tokens");
 
 const uuids = [];
 
-const recents = [
-  {
-    uuid: '8fc8718e-1b93-4baa-8013-058821959122',
-    visited_at: "2023-08-20 09:00:00",
-    title: 'Man found dead following shed fire in Palmer',
-    description: "The shed was ablaze when firefighters arrived, with flames “threatening to spread to the residence and nearby woods,” officials said.",
-    keywords: "",
-    snippet: "“Our hearts go out to this man’s family and loved ones,” Palmer Fire Chief William J. Bernat Jr. said in the statement. “On behalf of the Palmer Fire De...",
-    url: "https://www.bostonglobe.com/2023/07/17/metro/man-found-dead-following-shed-fire-palmer/?camp=bg:brief:rss:feedly&rss_id=feedly_rss_brief",  
-    language: "en",
-    categories: ['general'],
-    locale: "us",
-    image_url: "https://www.bostonglobe.com/pf/resources/images/logo-bg.jpg?d=420",
-    source: "bostonglobe.com",
-    published_at: "2023-07-18T01:51:32.000000Z",
-  }, 
-  {
-    uuid: "ab6b9480-a610-4a71-a7e4-6023b525c105",
-    visited_at: "2023-08-21 10:00:00",
-    title: "Emily Blunt Reveals Cillian Murphy’s Strict Oppenheimer Diet",
-    description: "The shed was ablaze when firefighters arrived, with flames “threatening to spread to the residence and nearby woods,” officials said.",
-    keywords: "",
-    snippet: "Watch : Matt Damon & Emily Blunt Reveal Their Daughters' CLOSE Bond\n\nCillian Murphy's role in Oppenheimer pushed him to extreme lengths.\n\nIn fact, his co-star E...",
-    url: "https://www.eonline.com/news/1380473/emily-blunt-reveals-cillian-murphy's-strict-lessigreateroppenheimerlessigreater-diet?cmpid=rss-syndicate-genericrss-us-top_stories",  
-    language: "en",
-    categories: ['entertainment', 'general'],
-    locale: "us",
-    image_url: "https://akns-images.eonline.com/eol_images/Entire_Site/2023617/rs_1200x1200-230717170936-1200-Emily-Blunt-Cillian-Murphy.cm.71723.jpg?fit=around%7C1080:1080&output-quality=90&crop=1080:1080;center,top",
-    source: "eonline.com",
-    published_at: "2023-07-18T01:49:03.000000Z",
-  }, 
-  {
-    uuid: 'cad54b33-860d-4bbd-96e6-e5551ec4fac2',
-    visited_at: "2023-08-22 11:00:00",
-    title: "Singapore’s passport is now the most powerful in the world. Here's how other countries ranked",
-    description: "Singapore has overtaken Japan to boast the most powerful passport in the world, the Henley Passport Index showed.",
-    keywords: "U.S. Economy, Asia Economy, South Korea, Singapore, Japan, business news",
-    snippet: "Singapore has overtaken Japan to boast of the world's most powerful passport, the Henley Passport Index showed.\n\nWhat it means is that the Singapore passport al...",
-    url: "https://www.cnbc.com/2023/07/19/henley-passport-index-2023-singapore-germany-italy-spain-rank-top-.html",  
-    language: "en",
-    categories: ['general', 'business'],
-    locale: "us",
-    image_url: "https://image.cnbcfm.com/api/v1/image/107273388-1689733279342-gettyimages-821304076-singaporesunset2.jpeg?v=1689733412&w=1920&h=1080",
-    source: "cnbc.com",
-    published_at: "2023-07-19T02:24:26.000000Z",
-  },
-];
+const news = {
+  meta: { found: 784202, returned: 3, limit: 3, page: 1 },
+  data: [
+    {
+      uuid: 'f163aa79-07a0-4673-8752-902323cd2685',
+      title: 'Simone Biles Shows She’s Not Just Easing Her Way Back',
+      description: 'In just her second elite meet following a two-year hiatus, Biles, 26, won a record eighth U.S. all-around title and became the oldest gymnast to win the champio...',
+      keywords: '',
+      snippet: 'That perhaps could partially be chalked up to her attitude: “It’s just gymnastics,” she has told her younger teammates. Keeping with her relaxed demeanor,...',
+      url: 'https://www.nytimes.com/2023/08/27/sports/simone-biles-gymnastics-championships.html',
+      image_url: 'https://static01.nyt.com/images/2023/08/27/multimedia/27gym-biles-top-cbjv/27gym-biles-top-cbjv-facebookJumbo.jpg',
+      language: 'en',
+      published_at: '2023-01-28T02:57:13.000000Z',
+      source: 'nytimes.com',
+      categories: [Array],
+      relevance_score: null,
+      locale: 'us'
+    },
+    {
+      uuid: 'bce0958b-d645-417c-8a81-c571719af8a6',
+      title: 'Simone Biles wins a record 8th U.S. gymnastics title a full decade after her first',
+      description: 'Biles became the oldest woman to win a national title since USA Gymnastics began organizing the event in 1963. Her eight crowns moved her past Alfred Jochim, wh...',
+      keywords: '',
+      snippet: 'Simone Biles wins a record 8th U.S. gymnastics title a full decade after her first\n' +
+        '\n' +
+        'Enlarge this image toggle caption Godofredo A. Vásquez/AP Godofredo A. Vás...',
+      url: 'https://www.npr.org/2023/08/27/1196274503/simone-biles-wins-a-record-8th-u-s-gymnastics-title-a-full-decade-after-her-firs',
+      image_url: 'https://media.npr.org/assets/img/2023/08/27/ap23239779365476_wide-91818d99986b4dc474aa1ff648773af3110113b0-s1400-c100.jpg',
+      language: 'en',
+      published_at: '2023-01-28T02:51:07.000000Z',
+      source: 'npr.org',
+      categories: [Array],
+      relevance_score: null,
+      locale: 'us'
+    },
+    {
+      uuid: '57f3339d-71e5-4a21-b9ed-6e4a31260f57',
+      title: 'Ron DeSantis booed at vigil as hundreds mourn victims of racially-motivated Jacksonville shooting',
+      description: 'Hundreds of people gathered Sunday at prayer vigils and in church to mourn the three people killed in a racially-motivated shooting at a Dollar General in Jacks...',
+      keywords: 'News, florida, jacksonville, mass shootings, racism, Ron DeSantis, shootings',
+      snippet: 'JACKSONVILLE, Fla. — Hundreds of people gathered Sunday at prayer vigils and in church, in frustration and exhaustion, to mourn yet another racist attack in A...',
+      url: 'https://nypost.com/2023/08/27/ron-desantis-booed-at-vigil-for-victims-of-racially-motivated-jacksonville-shooting/',
+      image_url: 'https://nypost.com/wp-content/uploads/sites/2/2023/08/newspress-collage-l3r85vx4q-1693187699533.jpg?quality=75&strip=all&1693173461&w=1024',
+      language: 'en',
+      published_at: '2023-01-28T02:44:05.000000Z',
+      source: 'nypost.com',
+      categories: [Array],
+      relevance_score: null,
+      locale: 'us'
+    }
+  ]
+}
 
 async function commonBeforeAll() {
   // noinspection SqlWithoutWhere
@@ -60,9 +65,9 @@ async function commonBeforeAll() {
   // noinspection SqlWithoutWhere
   await db.query("DELETE FROM recents");
 
-  uuids[0] = recents[0]["uuid"];
-  uuids[1] = recents[1]["uuid"];
-  uuids[2] = recents[2]["uuid"];
+  uuids[0] = news.data[0]["uuid"];
+  uuids[1] = news.data[1]["uuid"];
+  uuids[2] = news.data[2]["uuid"];
 
   await User.register({
     username: "user1",
@@ -81,9 +86,9 @@ async function commonBeforeAll() {
     password: "password2",
     isAdmin: false,
   });
-  
-  await User.setRecents("user1", recents );
-  await User.setRecents("user2", recents );
+  const updatedNews = news['data'].map( news => ({...news, visited_at: "2023-08-20 09:00:00"}))
+  await User.setRecents("user1", updatedNews );
+  await User.setRecents("user2", updatedNews );
 }
 
 
@@ -112,4 +117,5 @@ module.exports = {
   uuids,
   u1Token,
   u2Token,
+  news
 };
