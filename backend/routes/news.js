@@ -70,6 +70,10 @@ router.get("/top/:page", async (req, res, next) => {
 router.get("/category/:categories/:page", async (req, res, next) => {
     try {
         const { categories, page } = req.params;
+        // for testing purposes so we won't exhaust our api calls
+        if(process.env.NODE_ENV === "test") {
+            return res.json({ data: FAKE_DATA_CATEGORIES });
+        }
         const endPoint = `all?${API_TOKEN}&${LOCALE_US}&${LANG_EN}&categories=${categories}&page=${page}`;
         const { data } = await axios.get(`${BASE_URL}/${endPoint}`);
         console.log('GET::news/CATEGORY/:categories::', data, page);
@@ -268,3 +272,57 @@ const FAKE_DATA = {
       }
     ]
   }
+
+  const FAKE_DATA_CATEGORIES = {
+    meta: { found: 1622890, returned: 3, limit: 3, page: 1 },
+    data: [ 
+      {
+        uuid: '36edf22e-e6ad-4ba9-a7b0-21b3dfb60910',
+        title: 'The US Air Force wants $6 billion for 2,000 AI drones',
+        description: "Pilots' Goose cooked as uncrewed vehicles prove cheaper and perhaps more versatile",
+        keywords: '',
+        snippet: 'The US Air Force wants to spend around $5.8 billion on up to 2,000 pilotless AI-powered drones, to serve alongside human pilots.\n' +
+          '\n' +
+          'Earlier this month, colonel Tu...',
+        url: 'https://www.theregister.com/2023/08/29/us_airforce_drones/',
+        image_url: 'https://regmedia.co.uk/2023/08/29/valkyrie.jpg',
+        language: 'en',
+        published_at: '2023-08-29T02:55:43.000000Z',
+        source: 'theregister.com',
+        categories: [ 'tech', 'general' ],
+        relevance_score: null
+      },
+      {
+        uuid: '52585f26-afa3-4731-bcd3-6a627a8a11ba',
+        title: 'This video of a Southwest Airlines flight attendant rapping the inflight instructions is such a mood',
+        description: '"Best morning flight ever. This flight attendant was awesome!" the passenger wrote in a post on X, formerly Twitter.',
+        keywords: '',
+        snippet: 'This rapping Southwest Airlines flight attendant is such a mood.\n' +
+          '\n' +
+          "The unnamed flight attendant was seen rapping the inflight instructions on a passenger's X pos...",
+        url: 'https://www.insider.com/southwest-flight-attendant-rapped-inflight-instructions-2023-8',
+        image_url: 'https://i.insider.com/64ed499c3c42320019c06b3a?width=1200&format=jpeg',
+        language: 'en',
+        published_at: '2023-08-29T02:53:57.000000Z',
+        source: 'insider.com',
+        categories: [ 'general', 'entertainment', 'tech' ],
+        relevance_score: null
+      },
+      {
+        uuid: '4de8aa53-ad70-456d-97e2-7b91461bea9e',
+        title: 'I struggled with my weight when I lived in the US. But when I moved to Japan, I picked up 5 simple habits that have turned my health around.',
+        description: "Japanese eating habits taught me that there's nothing wrong with using store-bought dressing on some chicken steamed in the microwave.",
+        keywords: '',
+        snippet: 'Kaki Okumura is a Japanese wellness writer who grew up in the US and Japan.\n' +
+          '\n' +
+          'She picked up daily habits while living in Japan that help her maintain a healthy w...',
+        url: 'https://www.insider.com/japanese-eating-habits-to-follow-for-a-healthy-weight-2023-8',
+        image_url: 'https://i.insider.com/64e8603252bc2d001991d8af?width=1200&format=jpeg',
+        language: 'en',
+        published_at: '2023-08-29T02:53:57.000000Z',
+        source: 'insider.com',
+        categories: [ 'general', 'entertainment', 'tech' ],
+        relevance_score: null
+      }
+     ]
+};
