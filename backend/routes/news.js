@@ -107,6 +107,10 @@ router.get("/category/:categories/:page", async (req, res, next) => {
 router.get("/search/:value/:page", async function(req, res, next) {
     try {
         const { value, page } = req.params;
+        // for testing purposes so we won't exhaust our api calls
+        if(process.env.NODE_ENV === "test") {
+            return res.json({ data: FAKE_DATA_SEARCH });
+        }
         console.log("BACKEND::VALUE\n", req.params)
         const endPoint = `all?${API_TOKEN}&${LOCALE_US}&${LANG_EN}&search=${value}&${LIMIT}&page=${page}`;
         const { data } = await axios.get(`${BASE_URL}/${endPoint}`);
@@ -326,3 +330,59 @@ const FAKE_DATA = {
       }
      ]
 };
+
+const FAKE_DATA_SEARCH = {
+    meta: { found: 332103, returned: 3, limit: 3, page: 1 },
+    data: [
+      {
+        uuid: '37765bc2-3505-448c-9d3f-1e554e61114e',
+        title: 'Hot Pockets Hot Ones',
+        description: 'Frozen snack brand teams with YouTube sensation on spiciest varieties ever',
+        keywords: 'Hot Pockets Hot Ones, Nestle USA, Hot Sauce, Spicy, First We Feast, Heatonist, Tie-In Products, Handheld Snacks',
+        snippet: 'Beloved frozen handheld snack brand Hot Pockets has joined forces with First We Feast’s popular YouTube interview show “Hot Ones” to produce items that in...',
+        url: 'https://progressivegrocer.com/hot-pockets-hot-ones',
+        image_url: 'https://assets1.progressivegrocer.com/files/styles/primary_articles_short/s3/2023-08/hot_pockets_hot_ones_last_dab_apollo_teaser.png?h=73306683&itok=8YQt7slE',
+        language: 'en',
+        published_at: '2023-08-28T14:00:00.000000Z',
+        source: 'progressivegrocer.com',
+        categories: [Array],
+        relevance_score: 21.901957
+      },
+      {
+        uuid: '7065e5bc-3b8b-4f8a-97c8-297656d51938',
+        title: 'Infinix Hot 11s | Infinix Hot 11s Price | Infinix Hot 11s Specifications',
+        description: 'Infinix Hot 11s, In this article you can find out Infinix Hot 11s Price and Infinix Hot 11s Specifications. Infinix Hot 11s is a fresh out of the plastic new Ho...',
+        keywords: '',
+        snippet: 'Infinix Hot 11s | Infinix Hot 11s Price | Infinix Hot 11s Specifications ch sb Just now·3 min read\n' +
+          '\n' +
+          'Infinix Hot 11s | Infinix Hot 11s Price | Infinix Hot 11s S...',
+        url: 'https://medium.com/@chsb28745/infinix-hot-11s-infinix-hot-11s-price-infinix-hot-11s-specifications-4b7d67d10a61',
+        image_url: 'https://miro.medium.com/max/400/0*n5tuqdPt0uQWpCj0.jpg',
+        language: 'en',
+        published_at: '2021-09-29T04:39:58.000000Z',
+        source: 'medium.com',
+        categories: [Array],
+        relevance_score: 21.34317
+      },
+      {
+        uuid: '07217e3e-5862-44e3-9690-0c7b3fcebd85',
+        title: 'After-School Satan Clubs Are Hot, Hot, Hot!',
+        description: 'After-School Satan Clubs Are Hot, Hot, Hot! Following a major legal victory in the free speech department, after school Satan Clubs are picking up steam.…',
+        keywords: 'News, Aggregator, Breaking News, Curation, Media',
+        snippet: 'After-School Satan Clubs Are Hot, Hot, Hot!\n' +
+          '\n' +
+          '\n' +
+          '\n' +
+          'Following a major legal victory in the free speech department, after school Satan Clubs are picking up steam.\n' +
+          '\n' +
+          'La...',
+        url: 'https://biztoc.com/x/02ec6643db5be27a?ref=ff',
+        image_url: 'https://c.biztoc.com/p/02ec6643db5be27a/og.webp',
+        language: 'en',
+        published_at: '2023-05-13T23:56:04.000000Z',
+        source: 'upstract.com',
+        categories: [Array],
+        relevance_score: 21.148346
+      }
+    ]
+  } 
