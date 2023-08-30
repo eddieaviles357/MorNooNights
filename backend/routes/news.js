@@ -116,10 +116,9 @@ router.get("/search/:value/:page", async function(req, res, next) {
         if(process.env.NODE_ENV === "test") {
             return res.json({ data: FAKE_DATA_SEARCH });
         }
-        console.log("BACKEND::VALUE\n", req.params)
         const endPoint = `all?${API_TOKEN}&${LOCALE_US}&${LANG_EN}&search=${value}&${LIMIT}&page=${page}`;
         const { data } = await axios.get(`${BASE_URL}/${endPoint}`);
-        console.log('GET::/search/VALUE::', data, '\nvalue',value)
+        // console.log('GET::/search/VALUE::', data, '\nvalue',value)
         return res.json({ data });
     } catch (err) {
         return next(err);
@@ -139,9 +138,13 @@ router.get("/search/:value/:page", async function(req, res, next) {
 *  
 * Throws NotFoundError on no news.
 **/
-router.get("uuid/:id", async (req, res, next) => {
+router.get("/uuid/:id", async (req, res, next) => {
     try {
         const { id } = req.params;
+        // for testing purposes so we won't exhaust our api calls
+        if(process.env.NODE_ENV === "test") {
+          return res.json({ data: FAKE_DATA.data[0] });
+        }
         const endPoint = `uuid/${id}?${API_TOKEN}`;
         const { data } = await axios.get(`${BASE_URL}/${endPoint}`)
         // console.log('GET::news/UUID/id::', data);
