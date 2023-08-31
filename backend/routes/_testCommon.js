@@ -112,7 +112,7 @@ const news = {
     }
   ]
 }
-
+let users = []
 async function commonBeforeAll() {
   // noinspection SqlWithoutWhere
   await db.query("DELETE FROM users");
@@ -123,23 +123,33 @@ async function commonBeforeAll() {
   uuids[1] = news.data[1]["uuid"];
   uuids[2] = news.data[2]["uuid"];
 
-  await User.register({
+  users.push(await User.register({
     username: "user1",
     firstName: "u1first",
     lastName: "u1last",
     email: "user1@user.com",
     password: "password1",
     isAdmin: false,
-  });
+  }))
 
-  await User.register({
+  users.push(await User.register({
     username: "user2",
     firstName: "u2first",
     lastName: "u2last",
     email: "user2@user.com",
     password: "password2",
+    isAdmin: true,
+  }))
+
+  users.push(await User.register({
+    username: "user3",
+    firstName: "u3first",
+    lastName: "u3last",
+    email: "use3@user.com",
+    password: "password3",
     isAdmin: false,
-  });
+  }))
+
   const updatedNews = news['data'].map( news => ({...news, visited_at: "2023-08-20 09:00:00"}))
   await User.setRecents("user1", updatedNews );
   await User.setRecents("user2", updatedNews );
@@ -159,8 +169,9 @@ async function commonAfterAll() {
 }
 
 
-const u1Token = createToken({ username: "u1", isAdmin: false });
-const u2Token = createToken({ username: "u2", isAdmin: true });
+const u1Token = createToken({ username: "user1", isAdmin: false });
+const u2Token = createToken({ username: "user2", isAdmin: true });
+const u3Token = createToken({ username: "user3", isAdmin: false });
 
 
 module.exports = {
@@ -171,6 +182,8 @@ module.exports = {
   uuids,
   u1Token,
   u2Token,
+  u3Token,
   news,
-  categoryNews
+  categoryNews,
+  users,
 };
