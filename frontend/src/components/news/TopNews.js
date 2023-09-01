@@ -19,10 +19,8 @@ export default function TopNews() {
   const [currPage, setCurrPage] = useState(1);
 
   const { 
-    currentUser, 
     errors, 
     setErrors,
-    setVisitedNews, 
     updateRecentlyVisited,
     topNews,
     setTopNews,
@@ -56,6 +54,7 @@ export default function TopNews() {
     try {
       fetchTopNews();
     } catch (err) {
+      setErrors(Array.from(err || err.message))
       console.log(err);
     }
   },[])
