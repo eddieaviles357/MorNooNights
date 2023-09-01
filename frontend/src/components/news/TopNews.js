@@ -58,7 +58,7 @@ export default function TopNews() {
     } catch (err) {
       console.log(err);
     }
-  })
+  },[])
 
   // if there are any errors display them to user
   if (errors) {
