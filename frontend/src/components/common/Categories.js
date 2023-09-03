@@ -5,7 +5,7 @@ function Categories( { clickHandler } ) {
   function handleClick(evt) {
     // get category from dataset and pass data to clickHandler
     const {category} = evt.target.dataset;
-    clickHandler(category);
+    clickHandler(category, 1, true);
   }
   return (
     <>
