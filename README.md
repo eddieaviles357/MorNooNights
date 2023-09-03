@@ -7,4 +7,4 @@ Check out the API [TheNewsAPI](https://www.thenewsapi.com)
 
 There are user, recents, and favorites tables in the database.
 
-![SchemaUpdated](https://github.com/eddieaviles357/MorNooNights/assets/45490047/217f9f8a-0269-4b86-be6c-2e4ab25b6ea7)
+![mnn_db_schema](https://github.com/eddieaviles357/MorNooNights/assets/45490047/a6a1b7cb-9cec-4d3d-940d-6f9d2cf084b0)
