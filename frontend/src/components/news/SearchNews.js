@@ -35,12 +35,12 @@ function SearchNews() {
     setCurrentPage( currPage+1 );
   };
 
-  async function getCategoryNews(category, page = 1) {
+  async function getCategoryNews(category, page = 1, reset = false) {
     try {
       setIsLoading(true);
       const {data} = await MorNooNightsNewsAPI.getNewsByCategory(category, page);
       console.log("%cCategory", "color: yellow; font-size: 20px;", category);
-      setNews( prev => [ ...prev, ...data.data ]);
+      (reset) ? setNews( [...data.data] ) : setNews( prev => [ ...prev, ...data.data ]);
       setSearchTerm( category );
       setIsLoading(false);
     } catch (err) {
