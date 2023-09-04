@@ -17,7 +17,7 @@ The API used for this project is [TheNewsAPI](https://www.thenewsapi.com)
 
 ### Running the app
 
-To run our app enter the following on your terminal. Make sure you are in the right folder (backend or frontend).
+Clone the app and run the app. Enter the following on your terminal. Make sure you are in the right folder (backend or frontend).
 
 ```javascript
 npm start
