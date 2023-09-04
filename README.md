@@ -6,12 +6,14 @@ MorNooNights App displays News from the world or local to you with filtering opt
 Users must sign up in order to view news articles and recently viewed articles.
 The API used for this project is [TheNewsAPI](https://www.thenewsapi.com)
 
-This app uses the following tech stack:
+### The following are required:
 
-- NodeJS
-- ExpressJS
-- ReactJS
-- PostgreSQL
+- NodeJS v20.2+
+- ExpressJS v4.18+
+- PostgreSQL v15+
+- PG v8.11+
+- ReactJS v18.2+
+- React Router v6.14.1+
 
 ### Running the app
 
