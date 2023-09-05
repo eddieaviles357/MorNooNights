@@ -15,20 +15,20 @@ The API used for this project is [TheNewsAPI](https://www.thenewsapi.com)
 - ReactJS v18.2+
 - React Router v6.14.1+
 
-### Install PostgreSQL
-
-Make sure to have [PostgreSQL](https://www.postgresql.org) installed on your machine before starting. Cd to the backend folder and run the following command on your terminal to seed the database.
-
-```shell
-psql < mornoonights.sql
-```
-
 ### Running the app
 
 Clone the app and run the app. Enter the following on your terminal. Make sure you are in the right folder (backend or frontend).
 
 ```javascript
 npm start
+```
+
+### Install PostgreSQL
+
+Make sure to have [PostgreSQL](https://www.postgresql.org) installed on your machine before starting. Cd to the backend folder and run the following command on your terminal to seed the database.
+
+```javascript
+psql < mornoonights.sql;
 ```
 
 ### Running test
