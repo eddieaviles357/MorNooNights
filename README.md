@@ -49,10 +49,22 @@ We will be using [TheNewsAPI](https://www.thenewsapi.com) for fetching our news 
 
 ![mnn_db_schema](https://github.com/eddieaviles357/MorNooNights/assets/45490047/a6a1b7cb-9cec-4d3d-940d-6f9d2cf084b0)
 
+# Home page
+
+Initial page
 ![home](https://github.com/eddieaviles357/MorNooNights/assets/45490047/511aaf84-e8bd-4530-a192-811b2da3b783)
 
-![search](https://github.com/eddieaviles357/MorNooNights/assets/45490047/42f0d680-f79d-449b-bfa8-dc0c9734852f)
+# Signup page
 
+Create an account
 ![signup](https://github.com/eddieaviles357/MorNooNights/assets/45490047/9fc4ff27-0a2e-4873-88fe-d8c7b1e98fc9)
 
+# Topnews page
+
+Displays the top news of the day
 ![topnews](https://github.com/eddieaviles357/MorNooNights/assets/45490047/6508b54c-2f01-494f-a750-b2fbd5c16c52)
+
+# Search news
+
+Filter news by categories or by keywords
+![search](https://github.com/eddieaviles357/MorNooNights/assets/45490047/42f0d680-f79d-449b-bfa8-dc0c9734852f)
