@@ -23,6 +23,10 @@ app.use("/news", ensureLoggedIn, newsRoutes);
 app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
 
+if(process.env.NODE_ENV === 'production') {
+    app.use(express.static("frontend/build"));
+}
+
 /** Handle 404 errors -- this matches everything */
 app.use(function (req, res, next) {
     return next(new NotFoundError());
