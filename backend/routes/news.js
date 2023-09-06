@@ -81,7 +81,7 @@ router.get("/category/:categories/:page", async (req, res, next) => {
         }
         const endPoint = `all?${API_TOKEN}&${LOCALE_US}&${LANG_EN}&categories=${categories}&page=${page}`;
         const { data } = await axios.get(`${BASE_URL}/${endPoint}`);
-        console.log('GET::news/CATEGORY/:categories::', data, page);
+        // console.log('GET::news/CATEGORY/:categories::', data, page);
         return res.json({ data })
     } catch (err) {
         return next(err);
