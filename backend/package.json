@@ -31,5 +31,9 @@
   },
   "devDependencies": {
     "supertest": "^6.3.3"
+  },
+  "engines": {
+    "npm": "9.5.1",
+    "node": "18.16.1"
   }
 }
