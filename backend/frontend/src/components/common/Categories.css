@@ -1,0 +1,13 @@
+.Categories {
+  background-color: var(--secondary);
+  color: var(--stroke)
+}
+
+.Categories span {
+  margin: 5px;
+  cursor: pointer;
+}
+
+.Categories span:hover {
+  color: var(--tertiary);
+}

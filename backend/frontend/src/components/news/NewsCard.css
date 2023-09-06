@@ -1,0 +1,53 @@
+.NewsCard {
+  position: relative;
+  display: inline-block;
+  min-width: 335px;
+  width: 25%;
+
+  margin: 10px;
+
+  border: 2px solid black;
+  /* border-radius: 10px; */
+
+  overflow: hidden;
+  
+}
+
+.NewsCard .Body {
+  height: auto;
+  padding: 10px;
+  background-color: var(--headline);
+  color: var(--main);
+}
+
+.NewsCard .Body h5 {
+  min-height: 100px;
+  max-height: 100px;
+  overflow: hidden; 
+}
+
+.img-container {
+  height: 300px;
+  width: 400px;
+  margin: 0;
+  overflow: hidden;
+  object-fit: cover;
+
+
+
+
+  /* position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1; */
+}
+
+.img-container img {
+  height: 300px;
+  width: 400px;
+}
+
+.btn:hover, .btn:focus, .btn:active, .btn.active, .open>.dropdown-toggle.btn {
+  color: var(--button-text);
+  background-color: #f06f87;
+}
