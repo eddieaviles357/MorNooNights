@@ -3,7 +3,7 @@
     "$id": "http://www.mornoonightsnews.com/userAuthSchema.json",
     "title": "Authenticated",
     "description": "Authenticate User",
-    "type": "object",
+    "type": "object", 
     "properties": {
         "username": {
             "description": "username",
