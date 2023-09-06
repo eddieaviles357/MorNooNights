@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "news data",
   "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
   "jest": {
     "testPathIgnorePatterns": [
       "/node_modules/",
