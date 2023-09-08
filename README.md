@@ -19,6 +19,42 @@ The API used for this project is [TheNewsAPI](https://www.thenewsapi.com)
 
 ### Running the app
 
+First navigate to the backend directory and run the following
+
+```javascript
+npm i
+```
+
+Navigate to frontend directory and run the following
+
+```javascript
+npm i
+
+```
+
+since we are using webpack 5 we need to modify our webpack.config.js file
+navigate to node_modules -> react-scripts -> config -> webpack.config.js.
+
+enter the following
+
+```javascript
+// line 305
+resolve: {
+  fallback: {
+    "crypto": require.resolve("crypto-browserify"),
+    ...
+  }
+}
+// line 606
+plugins: [
+    new webpack.DefinePlugin({
+    process: JSON.stringify(process.env.NODE_ENV),
+  }),
+  ...
+]
+...
+```
+
 Clone the app and run the app. Enter the following on your terminal. Make sure you are in the right folder (backend or frontend).
 
 ```javascript
