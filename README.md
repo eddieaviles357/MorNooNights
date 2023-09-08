@@ -55,7 +55,7 @@ plugins: [
 ...
 ```
 
-Clone the app and run the app. Enter the following on your terminal. Make sure you are in the right folder (backend or frontend).
+Now we can start our app. Enter the following on your terminal. Make sure you are in the right folder (backend or frontend).
 
 ```javascript
 npm start
