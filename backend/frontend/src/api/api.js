@@ -43,7 +43,7 @@ class MorNooNightsNewsAPI {
 
   static async updateRecents(username, data) {
     console.log("%cAPI::FRONTEND::UPDATE_RECENTS", "color: yellow; font-size: 20px;", data)
-    const res = await this.request(`users/${username}/recents`, data , "post");
+    await this.request(`users/${username}/recents`, data , "post");
   }
 
   /****** News specific API endpoints *******/
