@@ -99,7 +99,7 @@ function App() {
       return { success: true };
     } catch (errors) {
       console.error("login failed", errors);
-      return { success: false, errors: errors.message };
+      return { success: false, errors: errors };
     }
   };
 
