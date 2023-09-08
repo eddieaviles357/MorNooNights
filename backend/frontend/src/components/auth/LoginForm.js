@@ -1,15 +1,18 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useContext } from "react";
+import { Navigate } from "react-router-dom";
 import "./Auth.css";
 import Alert from "../common/Alert";
+import UserContext from "../auth/UserContext";
 // Login form.
  
 function LoginForm({ login }) {
-  const navigate = useNavigate();
+  const { currentUser } = useContext(UserContext);
   const [formData, setFormData] = useState({
     username: "",
     password: "",
   });
+
+
   // will be used to display error to user
   const [formErrors, setFormErrors] = useState([]);
 
@@ -20,21 +23,18 @@ function LoginForm({ login }) {
     evt.preventDefault();
 
     let result = await login(formData);
-    if (result.success) {
-      // navigates to news route when successfuly login is received
-      setTimeout(() => navigate("/news", { replace: true}), 0);
-    } else {
-      // something went wrong
-      setFormErrors( prev => [...prev, result.errors]);
-    }
+    if (!result.success) setFormErrors( [ result.errors] )
   }
 
   /** Update form data field */
   function handleChange(evt) {
     const { name, value } = evt.target;
-    setFormData(currInputVal => ({ ...currInputVal, [name]: value }));
+    setFormData(currInputVal => ({ ...currInputVal, [name]: value.toLowerCase() }));
   }
 
+  // redirect to topNews
+  if(!!currentUser) (<Navigate to="/news" />)
+  
   return (
       <div className="LoginForm">
         <div className="container col-md-6 offset-md-3 col-lg-4 offset-lg-4">

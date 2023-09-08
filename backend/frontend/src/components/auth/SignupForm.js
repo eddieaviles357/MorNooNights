@@ -1,7 +1,8 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useContext } from "react";
+import { Navigate } from "react-router-dom";
 import "./Auth.css";
 import Alert from "../common/Alert";
+import UserContext from "../auth/UserContext";
 /** Signup form.
  *
  * Shows form.
@@ -10,7 +11,7 @@ import Alert from "../common/Alert";
  */
 
 function SignupForm({ signup }) {
-  const navigate = useNavigate();
+  const { currentUser } = useContext(UserContext);
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -28,20 +29,19 @@ function SignupForm({ signup }) {
   async function handleSubmit(evt) {
     evt.preventDefault();
     let result = await signup(formData);
-    if (result.success) {
-      // navigates to news route when successfuly signup is received
-      setTimeout(() => navigate("/news", { replace: -1}), 0);
-    } else {
-      setFormErrors(prev => [...prev, result.errors]);
+    if (!result.success) setFormErrors( [result.errors] );
     }
   }
 
   /** Update form data field */
   function handleChange(evt) {
     const { name, value } = evt.target;
-    setFormData(data => ({ ...data, [name]: value }));
+    setFormData(data => ({ ...data, [name]: value.toLowerCase() }));
   }
 
+  // redirects to topNews
+  if(!!currentUser) (<Navigate to="/news" />);
+  
   return (
       <div className="SignupForm">
         <div className="container col-md-6 offset-md-3 col-lg-4 offset-lg-4">
