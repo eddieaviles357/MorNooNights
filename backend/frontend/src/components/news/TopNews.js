@@ -62,7 +62,7 @@ export default function TopNews() {
   // if there are any errors display them to user
   if (errors) {
     console.error('API::ERROR::',errors);
-    return <div className="d-flex justify-content-center ">{errors.map(e => (<div>Sorry an Error Ocurred</div>) )}</div>
+    return <div className="d-flex justify-content-center ">{errors.map( (e, idx) => (<div key={idx}>Sorry an Error Ocurred</div>) )}</div>
   };
 
   // Loader
