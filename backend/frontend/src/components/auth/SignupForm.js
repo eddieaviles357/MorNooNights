@@ -30,7 +30,6 @@ function SignupForm({ signup }) {
     evt.preventDefault();
     let result = await signup(formData);
     if (!result.success) setFormErrors( [result.errors] );
-    }
   }
 
   /** Update form data field */
