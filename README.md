@@ -87,6 +87,12 @@ jest
 jest <filename>.test.js
 ```
 
+to run test for the frontend run the following command
+
+```javascript
+npm run test
+```
+
 ## PostgreSQL Database Schema
 
 The database schema is very simple.
@@ -114,3 +120,7 @@ Displays the top news of the day
 
 Filter news by categories or by keywords
 ![search](https://github.com/eddieaviles357/MorNooNights/assets/45490047/42f0d680-f79d-449b-bfa8-dc0c9734852f)
+
+```
+
+```
