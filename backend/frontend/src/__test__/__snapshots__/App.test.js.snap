@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`matches snapshot 1`] = `
+exports[`App component matches snapshot 1`] = `
 <DocumentFragment>
   <div
     class="App"
@@ -68,3 +68,5 @@ exports[`matches snapshot 1`] = `
   </div>
 </DocumentFragment>
 `;
+
+exports[`App component should display log in or sign in nav components 1`] = `<DocumentFragment />`;

@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Categories component matches snapshot 1`] = `
+<DocumentFragment>
+  <section
+    class="Categories d-flex flex-column justify-content-evenly align-items-center flex-wrap p-2"
+  >
+    <div>
+      <span
+        data-category="business"
+      >
+        business
+      </span>
+      <span
+        data-category="entertainment"
+      >
+        entertainment
+      </span>
+      <span
+        data-category="food"
+      >
+        food
+      </span>
+      <span
+        data-category="politics"
+      >
+        politics
+      </span>
+      <span
+        data-category="science"
+      >
+        science
+      </span>
+      <span
+        data-category="sports"
+      >
+        sports
+      </span>
+      <span
+        data-category="tech"
+      >
+        tech
+      </span>
+      <span
+        data-category="travel"
+      >
+        travel
+      </span>
+    </div>
+  </section>
+</DocumentFragment>
+`;

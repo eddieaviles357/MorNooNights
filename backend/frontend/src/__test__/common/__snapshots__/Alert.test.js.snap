@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`matches snapshot 1`] = `
+exports[`Alert component matches snapshot 1`] = `
 <DocumentFragment>
   <div
     class="alert alert-danger"
@@ -9,7 +9,7 @@ exports[`matches snapshot 1`] = `
 </DocumentFragment>
 `;
 
-exports[`matches snapshot for error message 1`] = `
+exports[`Alert component matches snapshot for error message 1`] = `
 <DocumentFragment>
   <div
     class="alert alert-danger"
@@ -24,7 +24,7 @@ exports[`matches snapshot for error message 1`] = `
 </DocumentFragment>
 `;
 
-exports[`matches snapshot for success mesage 1`] = `
+exports[`Alert component matches snapshot for success mesage 1`] = `
 <DocumentFragment>
   <div
     class="alert alert-success"
