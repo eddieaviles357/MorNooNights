@@ -2,9 +2,7 @@ import { render, cleanup } from '@testing-library/react';
 import App from '../App';
 import { MemoryRouter } from "react-router";
 
-afterEach(() => {
-  cleanup();
-});
+afterEach(cleanup);
 
 describe("App component", () => {
   it('renders without crashing', () => {

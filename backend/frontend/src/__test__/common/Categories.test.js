@@ -2,9 +2,7 @@ import { render, cleanup } from '@testing-library/react';
 import Categories from '../../components/common/Categories';
 import { MemoryRouter } from "react-router";
 
-afterAll(() => {
-  cleanup();
-});
+afterEach(cleanup);
 
 describe("Categories component", () => {
   it('renders without crashing', () => {

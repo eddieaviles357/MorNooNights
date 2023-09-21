@@ -1,9 +1,7 @@
 import { render, cleanup } from '@testing-library/react';
 import Alert from '../../components/common/Alert';
 
-afterAll(() => {
-  cleanup();
-})
+afterEach(cleanup);
 
 describe("Alert component", () => {
   it('renders without crashing', () => {
