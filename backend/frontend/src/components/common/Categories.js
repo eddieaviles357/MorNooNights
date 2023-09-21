@@ -9,6 +9,16 @@ function Categories( { clickHandler } ) {
   }
   return (
     <>
+    {/* <ul onClick={handleClick} className="Categories d-flex flex-column justify-content-evenly align-items-center flex-wrap p-2">
+      <li data-category={"business"}>business</li>
+      <li data-category={"entertainment"}>entertainment</li>
+      <li data-category={"food"}>food</li>
+      <li data-category={"politics"}>politics</li>
+      <li data-category={"science"}>science</li>
+      <li data-category={"sports"}>sports</li>
+      <li data-category={"tech"}>tech</li>
+      <li data-category={"travel"}>travel</li>
+    </ul> */}
       <section 
         onClick={handleClick} 
         className="Categories d-flex flex-column justify-content-evenly align-items-center flex-wrap p-2">
