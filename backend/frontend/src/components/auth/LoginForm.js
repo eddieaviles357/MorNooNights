@@ -1,11 +1,12 @@
-import React, { useState, useContext } from "react";
-import { Navigate } from "react-router-dom";
+import React, { useState, useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Auth.css";
 import Alert from "../common/Alert";
 import UserContext from "../auth/UserContext";
 // Login form.
  
 function LoginForm({ login }) {
+  const Navigate = useNavigate()
   const { currentUser } = useContext(UserContext);
   const [formData, setFormData] = useState({
     username: "",
@@ -31,6 +32,10 @@ function LoginForm({ login }) {
     const { name, value } = evt.target;
     setFormData(currInputVal => ({ ...currInputVal, [name]: value.toLowerCase() }));
   }
+
+  useEffect(() => {
+   if(currentUser) Navigate("/news")
+  }, [currentUser])
 
   // redirect to topNews
   if(!!currentUser) (<Navigate to="/news" />)
