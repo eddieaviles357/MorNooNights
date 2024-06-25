@@ -37,8 +37,6 @@ function LoginForm({ login }) {
    if(currentUser) Navigate("/news")
   }, [currentUser])
 
-  // redirect to topNews
-  if(!!currentUser) (<Navigate to="/news" />)
   
   return (
       <div className="LoginForm">
