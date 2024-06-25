@@ -1,5 +1,5 @@
-import React, { useState, useContext } from "react";
-import { Navigate } from "react-router-dom";
+import React, { useState, useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Auth.css";
 import Alert from "../common/Alert";
 import UserContext from "../auth/UserContext";
@@ -11,6 +11,7 @@ import UserContext from "../auth/UserContext";
  */
 
 function SignupForm({ signup }) {
+  const Navigate = useNavigate()
   const { currentUser } = useContext(UserContext);
   const [formData, setFormData] = useState({
     username: "",
@@ -39,7 +40,9 @@ function SignupForm({ signup }) {
   }
 
   // redirects to topNews
-  if(!!currentUser) (<Navigate to="/news" />);
+  useEffect(() => {
+    if(currentUser) Navigate("/news")
+  }, [currentUser])
   
   return (
       <div className="SignupForm">
